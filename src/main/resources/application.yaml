@@ -9,3 +9,6 @@ logging:
   level:
     com:
       longder: DEBUG
+# 服务端口
+server:
+  port: 5188

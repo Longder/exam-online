@@ -34,6 +34,11 @@ public class SysUser extends BaseIdEntity implements UserDetails {
      */
     @Column(name = "password_")
     private String password;
+    /**
+     * 性别
+     */
+    @Column(name = "gender_")
+    private String gender;
 
     /**
      * 用户角色

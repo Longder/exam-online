@@ -30,7 +30,8 @@
                     <div class="col-sm-3">
                         <span class="input-group-btn">
                         <input type="button" class="btn btn-success" data-toggle="modal"
-                               data-target="#userModal"
+                               data-target="#studentModal"
+                               onclick="openModal('${ctx}/student/toAdd','studentModal')"
                                value="新增学生"/>
                         </span>
                     </div>
@@ -70,5 +71,7 @@
         </div>
     </div>
 </div>
+<div class="modal inmodal fade" id="studentModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<jsp:include page="/import/Script.jsp"/>
 </body>
 </html>

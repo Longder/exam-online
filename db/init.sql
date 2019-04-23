@@ -6,6 +6,7 @@ create table SYS_USER
 	name_ varchar(255) null comment '姓名',
 	login_name_ varchar(100) null comment '登录名',
 	password_ varchar(100) null comment '密码',
+	gender_ varchar(50) null comment '性别',
 	constraint SYS_USER_pk
 		primary key (id_)
 )
