@@ -49,6 +49,12 @@
                     </ul>
                 </li>
                 <li>
+                    <a class="J_menuItem" href="${ctx}/course/list" title="课程管理">
+                        <i class="fa fa-cog"></i>
+                        <span class="nav-label">课程管理</span>
+                    </a>
+                </li>
+                <li>
                     <a class="J_menuItem" href="#" title="试题管理">
                         <i class="fa fa-cog"></i>
                         <span class="nav-label">试题管理</span>

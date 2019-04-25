@@ -1,7 +1,6 @@
 package com.longder.exam.action.user;
 
 import com.longder.exam.action.BaseAction;
-import com.longder.exam.action.MainAction;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.struts2.convention.annotation.Action;
