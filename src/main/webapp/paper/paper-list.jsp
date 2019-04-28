@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>课程列表</title>
+    <title>试卷列表</title>
     <jsp:include page="/import/head.jsp"/>
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>课程列表</h5>
+                <h5>试卷列表</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -30,9 +30,9 @@
                     <div class="col-sm-3">
                         <span class="input-group-btn">
                         <input type="button" class="btn btn-success" data-toggle="modal"
-                               data-target="#courseModal"
-                               onclick="openModal('${ctx}/course/toAdd','courseModal')"
-                               value="新增课程"/>
+                               data-target="#paperModal"
+                               onclick="openModal('${ctx}/paper/toGenerate','paperModal')"
+                               value="生成试卷"/>
                         </span>
                     </div>
                     <div class="col-sm-9">
@@ -44,29 +44,26 @@
                         <thead>
                         <tr>
                             <th>序号</th>
-                            <th>课程名称</th>
-                            <th>课程描述</th>
+                            <th>所属科目</th>
+                            <th>试卷名称</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${courseList}" var="course" varStatus="loop">
-                            <tr>
-                                <td>${loop.index+1}</td>
-                                <td>${course.name}</td>
-                                <td>${course.description}</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                            data-target="#courseModal">
-                                        修改
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
-                                        删除
-                                    </button>
-                                </td>
-                            </tr>
-                        </c:forEach>
-
+                        <tr>
+                            <td>333</td>
+                            <td>333</td>
+                            <td>333</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#questionModal">
+                                    修改
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger">
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -74,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="modal inmodal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div class="modal inmodal fade" id="paperModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
 </body>
 </html>
