@@ -21,7 +21,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">所属科目<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="question.course.id">
+                                            <select class="form-control m-b" name="paperGenerator.courseId">
                                                 <option value="">请选择</option>
                                                 <c:forEach items="${courseList}" var="course">
                                                     <option value="${course.id}">${course.name}</option>
@@ -33,35 +33,35 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试卷名称<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name=""/>
+                                            <input type="text" class="form-control" name="paperGenerator.paperName"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">选择题数量<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name=""/>
+                                            <input type="number" class="form-control" name="paperGenerator.choiceCount"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">填空题数量<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name=""/>
+                                            <input type="number" class="form-control" name="paperGenerator.fillCount"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">问答题数量<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name=""/>
+                                            <input type="number" class="form-control" name="paperGenerator.askCount"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">简答题数量<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name=""/>
+                                            <input type="number" class="form-control" name="paperGenerator.essayCount"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

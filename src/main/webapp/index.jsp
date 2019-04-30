@@ -49,12 +49,6 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">
-                        <i class="fa fa-cog"></i>
-                        <span class="nav-label">科目管理</span>
-                    </a>
-                </li>
-                <li>
                     <a href="#" title="考试管理">
                         <i class="fa fa-users"></i>
                         <span class="nav-label">考试管理</span>
@@ -65,15 +59,12 @@
                             <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>
                         </li>
                         <li>
+                            <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">试题管理</a>
+                        </li>
+                        <li>
                             <a class="J_menuItem" href="${ctx}/paper/list" title="试卷管理">试卷管理</a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">
-                        <i class="fa fa-cog"></i>
-                        <span class="nav-label">试题管理</span>
-                    </a>
                 </li>
                 <li>
                     <a href="#" title="我的考试">
@@ -83,7 +74,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="#" title="开始考试">开始考试</a>
+                            <a class="J_menuItem" href="${ctx}/exam/toChoose" title="开始考试">开始考试</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="#" title="我的成绩">我的成绩</a>

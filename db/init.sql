@@ -79,6 +79,7 @@ create table EXAM
 	student_id_ bigint null comment '学生id',
 	course_id_ bigint null comment '课程id',
 	grade_ varchar(50) null,
+	exam_paper_id_ bigint null,
 	constraint EXAM_pk
 		primary key (id_)
 )
@@ -90,6 +91,7 @@ create table EXAM_DETAIL
 	exam_id_ bigint null comment '考试id',
 	question_id_ bigint null comment '题目id',
 	correct_ bit default 0 null comment '是否正确',
+	answer_ VARCHAR(255)
 	constraint EXAM_DETAIL_pk
 		primary key (id_)
 )

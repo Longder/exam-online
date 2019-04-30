@@ -1,6 +1,7 @@
 package com.longder.exam.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -49,7 +50,11 @@ public class JpaDataSourceConfiguration {
      */
     @Bean(name = "dataSource")
     public DataSource dataSource(){
-        return new DriverManagerDataSource(jdbcUrl,username,password);
+        return DataSourceBuilder.create()
+                .username(username)
+                .password(password)
+                .url(jdbcUrl)
+                .build();
     }
 
     /**

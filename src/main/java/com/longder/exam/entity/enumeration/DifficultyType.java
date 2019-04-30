@@ -1,5 +1,7 @@
 package com.longder.exam.entity.enumeration;
 
+import java.util.Arrays;
+
 /**
  * 难度类型
  * Created by Longder
@@ -31,5 +33,9 @@ public enum  DifficultyType {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public static DifficultyType fromName(String name){
+        return Arrays.stream(DifficultyType.values()).filter(type-> type.getDisplayName().equals(name)).findFirst().orElse(null);
     }
 }

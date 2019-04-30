@@ -19,4 +19,6 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <!--Struts2不拦截的请求-->
     <constant name="struts.action.excludePattern" value="/.*jsp,/.*js,/.*css,/.*ico,/static/.*?,/login_check"/>
+
+<!--    <constant name="struts.multipart.parser" value="spring"/>-->
 </struts>

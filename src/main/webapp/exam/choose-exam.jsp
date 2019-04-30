@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>试卷列表</title>
+    <title>选择试卷</title>
     <jsp:include page="/import/head.jsp"/>
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>试卷列表</h5>
+                <h5>选择试卷</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -28,16 +28,9 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-sm-3">
-                        <span class="input-group-btn">
-                        <input type="button" class="btn btn-success" data-toggle="modal"
-                               data-target="#paperModal"
-                               onclick="openModal('${ctx}/paper/toGenerate','paperModal')"
-                               value="生成试卷"/>
-                        </span>
+                        <span class="input-group-btn"></span>
                     </div>
-                    <div class="col-sm-9">
-
-                    </div>
+                    <div class="col-sm-9"></div>
                 </div>
                 <div class="table table-bordered table-hover">
 
@@ -57,12 +50,9 @@
                                 <td>${paper.course.name}</td>
                                 <td>${paper.name}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-warning" >
-                                        试卷详情
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
-                                        删除
-                                    </button>
+                                    <a href="${ctx}/exam/startExam?examPaperId=${paper.id}" class="btn btn-sm btn-warning" >
+                                        开始考试
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -1,14 +1,16 @@
 package com.longder.exam.entity.enumeration;
 
+import java.util.Arrays;
+
 /**
  * 题目类型枚举
  * Created by Longder
  */
-public enum  QuestionType {
-    CHOICE("CHOICE","","选择题"),
-    FILL("FILL","","填空题"),
-    ASK("ASK","","问答题"),
-    ESSAY("ESSAY","","简答题");
+public enum QuestionType {
+    CHOICE("CHOICE", "", "选择题"),
+    FILL("FILL", "", "填空题"),
+    ASK("ASK", "", "问答题"),
+    ESSAY("ESSAY", "", "简答题");
 
 
     private String name;
@@ -22,6 +24,10 @@ public enum  QuestionType {
         this.name = name;
         this.label = label;
         this.displayName = displayName;
+    }
+
+    public static QuestionType fromValue(String value) {
+        return Arrays.stream(QuestionType.values()).filter(type -> type.displayName.equals(value)).findFirst().orElse(null);
     }
 
     public String getName() {

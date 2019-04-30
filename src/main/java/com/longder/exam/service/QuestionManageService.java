@@ -2,6 +2,7 @@ package com.longder.exam.service;
 
 import com.longder.exam.entity.po.Question;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -24,4 +25,8 @@ public interface QuestionManageService {
      */
     void saveQuestion(Question question);
 
+    /**
+     * 从excel导入题目
+     */
+    void importQuestionsFormExcel(Long courseId,File excelFile);
 }

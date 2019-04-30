@@ -26,3 +26,5 @@
 <link href="${ctx}/static/css/mystyle.css" rel="stylesheet">
 <!--Chosen-->
 <link href="${ctx}/static/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+<link href="${ctx}/static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
