@@ -30,4 +30,12 @@ public class SysUserRole extends BaseIdEntity implements GrantedAuthority {
     public String getAuthority() {
         return this.role.getName();
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SysUserRole{");
+        sb.append("role=").append(role);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -80,4 +80,15 @@ public class SysUser extends BaseIdEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SysUser{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", loginName='").append(loginName).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", gender='").append(gender).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

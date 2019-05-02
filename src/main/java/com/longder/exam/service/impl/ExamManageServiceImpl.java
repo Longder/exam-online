@@ -43,7 +43,7 @@ public class ExamManageServiceImpl implements ExamManageService {
         exam.setExamPaper(examPaper);
         exam.setCourse(examPaper.getCourse());
         exam.setStudent(student);
-        //examRepository.save(exam);
+        examRepository.save(exam);
 
         //处理考试详情
         List<ExamPaperQuestion> paperQuestionList = examPaperQuestionRepository.listByExamPaper(examPaper);
@@ -56,7 +56,7 @@ public class ExamManageServiceImpl implements ExamManageService {
             examDetailList.add(detail);
         });
 
-       // examDetailRepository.saveAll(examDetailList);
+        examDetailRepository.saveAll(examDetailList);
         exam.setDetailList(examDetailList);
         return exam;
     }

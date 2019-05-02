@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="session"/>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
                                 <span class="clear">
                                <span class="block m-t-xs">
                                    <strong class="font-bold">
-                                   您好！大表哥
+                                   您好！<sec:authentication property="principal.username"/>
                                    </strong>
                                </span>
                                 </span>
@@ -33,57 +34,63 @@
                         考
                     </div>
                 </li>
-                <li>
-                    <a href="#" title="用户管理">
-                        <i class="fa fa-users"></i>
-                        <span class="nav-label">用户管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/student/list" title="学生管理">学生管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/teacher/list" title="教师管理">教师管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" title="考试管理">
-                        <i class="fa fa-users"></i>
-                        <span class="nav-label">考试管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">试题管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/paper/list" title="试卷管理">试卷管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" title="我的考试">
-                        <i class="fa fa-users"></i>
-                        <span class="nav-label">我的考试</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/exam/toChoose" title="开始考试">开始考试</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="#" title="我的成绩">我的成绩</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="#" title="试题查询">试题查询</a>
-                        </li>
-                    </ul>
-                </li>
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                    <li>
+                        <a href="#" title="用户管理">
+                            <i class="fa fa-users"></i>
+                            <span class="nav-label">用户管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/student/list" title="学生管理">学生管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/teacher/list" title="教师管理">教师管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasAnyRole('ROLE_TEACHER')">
+                    <li>
+                        <a href="#" title="考试管理">
+                            <i class="fa fa-file-code-o"></i>
+                            <span class="nav-label">考试管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">试题管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/paper/list" title="试卷管理">试卷管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasAnyRole('ROLE_STUDENT')">
+                    <li>
+                        <a href="#" title="我的考试">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span class="nav-label">我的考试</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/exam/toChoose" title="开始考试">开始考试</a>
+                            </li>
+                                <%-- <li>
+                                     <a class="J_menuItem" href="#" title="我的成绩">我的成绩</a>
+                                 </li>
+                                 <li>
+                                     <a class="J_menuItem" href="#" title="试题查询">试题查询</a>
+                                 </li>--%>
+                        </ul>
+                    </li>
+                </sec:authorize>
             </ul>
         </div>
     </nav>
@@ -123,7 +130,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <!--用来切换的iframe-->
         <div class="row J_mainContent" id="content-main">

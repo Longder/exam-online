@@ -50,20 +50,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>张三丰</td>
-                            <td>sanfeng</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                        data-target="#userModal">
-                                    修改
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger">
-                                    删除
-                                </button>
-                            </td>
-                        </tr>
+                        <c:forEach items="${studentList}" var="student" varStatus="loop">
+                            <tr>
+                                <td>${loop.index+1}</td>
+                                <td>${student.name}</td>
+                                <td>${student.loginName}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#userModal">
+                                        修改
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger">
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

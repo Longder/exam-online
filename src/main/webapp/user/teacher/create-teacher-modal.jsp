@@ -8,7 +8,7 @@
                 <span aria-hidden="true">×</span>
                 <span class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title">新增学生</h4>
+            <h4 class="modal-title">新增教师</h4>
         </div>
         <small class="font-bold">
             <div class="modal-body">
@@ -17,19 +17,19 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
                                 <form id="createUserForm" method="post" class="form-horizontal"
-                                      action="${ctx}/student/add">
+                                      action="${ctx}/teacher/add">
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">姓名<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="student.name"/>
+                                            <input type="text" class="form-control" name="teacher.name"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">登录名<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="student.loginName"/>
+                                            <input type="text" class="form-control" name="teacher.loginName"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

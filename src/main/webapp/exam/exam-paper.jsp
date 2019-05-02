@@ -45,30 +45,36 @@
                                 <c:choose>
                                     <c:when test="${detail.question.type.name=='CHOICE'}">
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" value="A" name="Q${detail.question.id}" checked="">
-                                            <label>A</label>
+                                            <input id="Q${detail.question.id}A" type="radio" value="A" name="Q${detail.question.id}" checked="">
+                                            <label for="Q${detail.question.id}A">A</label>
                                         </div>
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" value="B" name="Q${detail.question.id}">
-                                            <label>B</label>
+                                            <input id="Q${detail.question.id}B" type="radio" value="B" name="Q${detail.question.id}">
+                                            <label for="Q${detail.question.id}B">B</label>
                                         </div>
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" value="C" name="Q${detail.question.id}">
-                                            <label>C</label>
+                                            <input id="Q${detail.question.id}C" type="radio" value="C" name="Q${detail.question.id}">
+                                            <label for="Q${detail.question.id}C">C</label>
                                         </div>
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" value="D" name="Q${detail.question.id}">
-                                            <label>D</label>
+                                            <input id="Q${detail.question.id}D" type="radio" value="D" name="Q${detail.question.id}">
+                                            <label for="Q${detail.question.id}D">D</label>
                                         </div>
                                     </c:when>
                                     <c:when test="${detail.question.type.name=='FILL'}">
-                                        <p>填空题</p>
+                                        <p>
+                                            <input type="text" class="form-control"/>
+                                        </p>
                                     </c:when>
                                     <c:when test="${detail.question.type.name=='ASK'}">
-                                        <p>问答题</p>
+                                        <p>
+                                            <textarea class="form-control"></textarea>
+                                        </p>
                                     </c:when>
                                     <c:when test="${detail.question.type.name=='ESSAY'}">
-                                        <p>简答题</p>
+                                        <p>
+                                            <textarea class="form-control"></textarea>
+                                        </p>
                                     </c:when>
                                 </c:choose>
                             </div>

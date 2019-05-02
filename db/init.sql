@@ -1,5 +1,5 @@
-create database exam_online default character set UTF8
 
+drop table if exists SYS_USER;
 create table SYS_USER
 (
 	id_ bigint auto_increment comment '主键',
@@ -12,6 +12,7 @@ create table SYS_USER
 )
 comment '系统用户表';
 
+drop table if exists SYS_USER_ROLE;
 create table SYS_USER_ROLE
 (
 	id_ bigint auto_increment comment '主键',
@@ -22,6 +23,7 @@ create table SYS_USER_ROLE
 )
 comment '用户角色表';
 
+drop table if exists COURSE;
 create table COURSE
 (
 	id_ bigint auto_increment comment '主键'
@@ -31,6 +33,7 @@ create table COURSE
 )
 comment '课程表';
 
+drop table if exists  STUDENT_COURSE;
 create table STUDENT_COURSE
 (
 	id_ bigint auto_increment,
@@ -41,6 +44,7 @@ create table STUDENT_COURSE
 )
 comment '学生选课表';
 
+drop table if exists QUESTION;
 create table QUESTION
 (
 	id_ BIGINT auto_increment comment '主键',
@@ -55,6 +59,7 @@ create table QUESTION
 )
 comment '题目';
 
+drop table if exists  EXAM_PAPER;
 create table EXAM_PAPER
 (
     id_ bigint auto_increment,
@@ -64,6 +69,7 @@ create table EXAM_PAPER
 )
     comment '试卷';
 
+drop table if exists EXAM_PAPER_QUESTION;
 create table EXAM_PAPER_QUESTION
 (
     id_ bigint auto_increment,
@@ -73,6 +79,7 @@ create table EXAM_PAPER_QUESTION
 )
     comment '试卷题目';
 
+drop table if exists EXAM;
 create table EXAM
 (
 	id_ bigint auto_increment,
@@ -85,19 +92,21 @@ create table EXAM
 )
 comment '考试';
 
+drop table if exists EXAM_DETAIL;
 create table EXAM_DETAIL
 (
 	id_ bigint auto_increment comment '主键',
 	exam_id_ bigint null comment '考试id',
 	question_id_ bigint null comment '题目id',
 	correct_ bit default 0 null comment '是否正确',
-	answer_ VARCHAR(255)
+	answer_ VARCHAR(255),
 	constraint EXAM_DETAIL_pk
 		primary key (id_)
 )
 comment '考试详情';
 
-
+insert into SYS_USER(name_, login_name_, password_, gender_) VALUES ('管理员','admin','$2a$10$OZkHd5LbJmQcBs5NUwetL.xafO5ThfwIW3dYCwU514oVopgRmOghu',null);
+insert into SYS_USER_ROLE(sys_user_id_, role_) values (1,'ROLE_ADMIN');
 
 
 

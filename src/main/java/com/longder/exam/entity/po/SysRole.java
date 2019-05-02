@@ -57,4 +57,8 @@ public enum SysRole implements GrantedAuthority {
     public String getAuthority() {
         return this.name;
     }
+
+    public boolean equals(SysRole role){
+        return this.name.equals(role.name);
+    }
 }

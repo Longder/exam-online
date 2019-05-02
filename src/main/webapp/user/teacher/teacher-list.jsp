@@ -30,7 +30,8 @@
                     <div class="col-sm-3">
                         <span class="input-group-btn">
                         <input type="button" class="btn btn-success" data-toggle="modal"
-                               data-target="#userModal"
+                               data-target="#teacherModal"
+                               onclick="openModal('${ctx}/teacher/toAdd','teacherModal')"
                                value="新增教师"/>
                         </span>
                     </div>
@@ -49,21 +50,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>李莫愁</td>
-                            <td>mochou</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                        data-target="#userModal">
-                                    修改
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                                        data-target="#userModal">
-                                    删除
-                                </button>
-                            </td>
-                        </tr>
+                        <c:forEach items="${teacherList}" var="teacher" varStatus="loop">
+                            <tr>
+                                <td>${loop.index+1}</td>
+                                <td>${teacher.name}</td>
+                                <td>${teacher.loginName}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary">
+                                        修改
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger">
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -71,5 +72,7 @@
         </div>
     </div>
 </div>
+<div class="modal inmodal fade" id="teacherModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<jsp:include page="/import/Script.jsp"/>
 </body>
 </html>
