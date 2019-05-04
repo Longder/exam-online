@@ -21,4 +21,11 @@ public interface CourseManageService {
      * @param course
      */
     void saveCourse(Course course);
+
+    /**
+     * 获取一个课程
+     * @param courseId
+     * @return
+     */
+    Course getCourse(Long courseId);
 }

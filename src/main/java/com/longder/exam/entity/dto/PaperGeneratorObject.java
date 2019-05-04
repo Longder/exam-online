@@ -3,7 +3,9 @@ package com.longder.exam.entity.dto;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 试卷生成器对象
@@ -15,6 +17,18 @@ public class PaperGeneratorObject implements Serializable {
      * 试卷名称
      */
     private String paperName;
+    /**
+     * 试卷难度系数
+     */
+    private Integer difficulty;
+    /**
+     * 考试时间（小时）
+     */
+    private Integer hours;
+    /**
+     * 考试时间（分钟）
+     */
+    private Integer minutes;
     /**
      * 选择题数量
      */
@@ -35,6 +49,11 @@ public class PaperGeneratorObject implements Serializable {
      * 课程id
      */
     private Long courseId;
+
+    /**
+     * 所选题目的id
+     */
+    private List<Long> questionIds;
 
     @Override
     public String toString() {

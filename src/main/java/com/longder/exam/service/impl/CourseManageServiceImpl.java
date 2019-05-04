@@ -41,4 +41,15 @@ public class CourseManageServiceImpl implements CourseManageService {
         logger.info("添加或修改课程的Service方法");
         courseRepository.save(course);
     }
+
+    /**
+     * 获取一个课程
+     *
+     * @param courseId
+     * @return
+     */
+    @Override
+    public Course getCourse(Long courseId) {
+        return courseRepository.getOne(courseId);
+    }
 }

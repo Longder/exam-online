@@ -4,43 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>试卷页</title>
+    <title>阅卷页</title>
     <jsp:include page="/import/head.jsp"/>
-    <style type="text/css">
-        .time-item strong {
-            background:#C71C60;
-            color:#fff;
-            line-height:49px;
-            font-size:36px;
-            font-family:Arial;
-            padding:0 10px;
-            margin-right:10px;
-            border-radius:5px;
-            box-shadow:1px 1px 3px rgba(0,0,0,0.2);
-        }
-        #day_show {
-            float:left;
-            line-height:49px;
-            color:#c71c60;
-            font-size:32px;
-            margin:0 10px;
-            font-family:Arial,Helvetica,sans-serif;
-        }
-        .item-title .unit {
-            background:none;
-            line-height:49px;
-            font-size:24px;
-            padding:0 10px;
-            float:left;
-        }
-    </style>
 </head>
 <body>
 <div class="row">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>${exam.examPaper.name}</h5>
+                <h5>阅卷试卷名称：${exam.examPaper.name}</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -65,66 +37,96 @@
                         <h2 class="text-center">
                             ${exam.examPaper.name}
                         </h2>
-                        <div class="time-item">
-                            <strong id="hour_show">0时</strong>
-                            <strong id="minute_show">0分</strong>
-                            <strong id="second_show">0秒</strong>
-                        </div>
                     </div>
-                    <form method="post" action="${ctx}/exam/completeExam">
+                    <form method="post" action="${ctx}/exam/checkExam">
                         <input type="hidden" name="exam.id" value="${exam.id}"/>
                         <c:forEach items="${exam.detailList}" var="detail" varStatus="loop">
                             <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
                                     <p>${detail.question.content}</p>
-                                    <p class="text-danger" style="display:none;">回答错误</p>
-                                    <p class="text-success" style="display:none;">回答正确</p>
+                                    <c:if test="${detail.question.type.name=='FILL'||detail.question.type.name=='CHOICE'}">
+                                        <p>标准答案：${detail.question.answer}</p>
+                                    </c:if>
+                                    <c:choose>
+                                        <c:when test="${empty detail.correct}">
+
+                                        </c:when>
+                                        <c:when test="${detail.correct}">
+                                            <p class="text-success">回答正确</p>
+                                        </c:when>
+                                        <c:when test="${!detail.correct}">
+                                            <p class="text-danger">回答错误</p>
+                                        </c:when>
+                                        <c:otherwise>
+
+                                        </c:otherwise>
+                                    </c:choose>
                                     <c:choose>
                                         <c:when test="${detail.question.type.name=='CHOICE'}">
                                             <div class="radio radio-info radio-inline">
-                                                <input id="Q${detail.question.id}A" type="radio" value="A"
-                                                       name="exam.detailList[${loop.index}].answer" checked="">
+                                                <input disabled id="Q${detail.question.id}A" type="radio" value="A"
+                                                       <c:if test="${detail.answer=='A'}">checked</c:if>>
                                                 <label for="Q${detail.question.id}A">A</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
-                                                <input id="Q${detail.question.id}B" type="radio" value="B"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                <input disabled id="Q${detail.question.id}B" type="radio" value="B"
+                                                       <c:if test="${detail.answer=='B'}">checked</c:if>>
                                                 <label for="Q${detail.question.id}B">B</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
-                                                <input id="Q${detail.question.id}C" type="radio" value="C"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                <input disabled id="Q${detail.question.id}C" type="radio" value="C"
+                                                       <c:if test="${detail.answer=='C'}">checked</c:if>>
                                                 <label for="Q${detail.question.id}C">C</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
-                                                <input id="Q${detail.question.id}D" type="radio" value="D"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                <input disabled id="Q${detail.question.id}D" type="radio" value="D"
+                                                       <c:if test="${detail.answer=='D'}">checked</c:if>>
                                                 <label for="Q${detail.question.id}D">D</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='FILL'}">
                                             <p>
-                                                <input name="exam.detailList[${loop.index}].answer" type="text" class="form-control"/>
+                                                <input readonly type="text" class="form-control" value="${detail.answer}"/>
                                             </p>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='ASK'}">
                                             <p>
-                                                <textarea name="exam.detailList[${loop.index}].answer" class="form-control"></textarea>
+                                                <textarea readonly class="form-control">${detail.answer}</textarea>
                                             </p>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='ESSAY'}">
                                             <p>
-                                                <textarea name="exam.detailList[${loop.index}].answer" class="form-control"></textarea>
+                                                <textarea readonly class="form-control">${detail.answer}</textarea>
                                             </p>
                                         </c:when>
                                     </c:choose>
+                                    <c:if test="${empty detail.correct}">
+                                        <p class="text-warning">未批改</p>
+                                        <p>
+                                            回答：
+                                            <span class="radio">
+                                            <input type="radio" name="exam.detailList[${loop.index}].correct"
+                                                   id="Q${detail.question.id}C" value="true" checked>
+                                            <label for="Q${detail.question.id}C">
+                                                正确
+                                            </label>
+                                        </span>
+                                        <span class="radio">
+                                            <input type="radio" name="exam.detailList[${loop.index}].correct"
+                                                   id="Q${detail.question.id}W" value="false">
+                                            <label for="Q${detail.question.id}W">
+                                                错误
+                                            </label>
+                                        </span>
+                                        </p>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
                         <div class="mail-box">
                             <div class="mail-body">
-                                <button class="btn btn-primary" type="submit">提交试卷</button>
+                                <button class="btn btn-primary" type="submit">确定阅卷</button>
                             </div>
                         </div>
                     </form>
@@ -135,33 +137,5 @@
 </div>
 <div class="modal inmodal fade" id="paperModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
-<script>
-    var seconds = '${exam.examTime}';//倒计时总秒数量
-    var intDiff = parseInt(seconds);
-    function timer(intDiff){
-        window.setInterval(function(){
-            var day=0,
-                hour=0,
-                minute=0,
-                second=0;//时间默认值       
-            if(intDiff > 0){
-                day = Math.floor(intDiff / (60 * 60 * 24));
-                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-            }
-            if (minute <= 9) minute = '0' + minute;
-            if (second <= 9) second = '0' + second;
-            $('#hour_show').html('<s id="h"></s>'+hour+'时');
-            $('#minute_show').html('<s></s>'+minute+'分');
-            $('#second_show').html('<s></s>'+second+'秒');
-            intDiff--;
-        }, 1000);
-    }
-    $(function(){
-        //倒计时
-        timer(intDiff);
-    });
-</script>
 </body>
 </html>

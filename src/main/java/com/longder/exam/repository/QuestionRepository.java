@@ -15,10 +15,20 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question,Long> {
 
     /**
-     * 根据题目类型和课程查询
+     * 根据题目类型和课程和题目难度查询
      * @param questionType
      * @return
      */
-    @Query("SELECT q from Question q where q.type = :questionType and q.course = :course")
-    List<Question> listByTypeAndCourse(@Param("questionType") QuestionType questionType,@Param("course") Course course);
+    @Query("SELECT q from Question q where q.type = :questionType and q.course = :course and q.difficulty = :difficulty")
+    List<Question> listByTypeAndCourseAndDifficulty(@Param("questionType") QuestionType questionType,
+                                                    @Param("course") Course course,
+                                                    @Param("difficulty")Integer difficulty);
+
+    /**
+     * 根据课程找题目
+     * @param courseId
+     * @return
+     */
+    @Query("SELECT q from Question q where q.course.id = :courseId")
+    List<Question> listByCourseId(@Param("courseId") Long courseId);
 }

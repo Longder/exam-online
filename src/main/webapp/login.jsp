@@ -31,6 +31,13 @@
             <div class="form-group">
                 <input type="password" class="form-control" placeholder="密码" name="password">
             </div>
+            <div class="form-group">
+                <select class="form-control">
+                    <option>管理员</option>
+                    <option>教师</option>
+                    <option>学生</option>
+                </select>
+            </div>
             <span class="text-danger">${SPRING_SECURITY_LAST_EXCEPTION.message}</span>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
         </form>

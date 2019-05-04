@@ -70,6 +70,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" title="成绩管理">
+                            <i class="fa fa-file-code-o"></i>
+                            <span class="nav-label">成绩管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/exam/listExamForTeacher" title="试卷列表">试卷列表</a>
+                            </li>
+                        </ul>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ROLE_STUDENT')">
                     <li>
@@ -82,12 +94,13 @@
                             <li>
                                 <a class="J_menuItem" href="${ctx}/exam/toChoose" title="开始考试">开始考试</a>
                             </li>
-                                <%-- <li>
-                                     <a class="J_menuItem" href="#" title="我的成绩">我的成绩</a>
-                                 </li>
-                                 <li>
-                                     <a class="J_menuItem" href="#" title="试题查询">试题查询</a>
-                                 </li>--%>
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/exam/listExamForStudent" title="我的考试">我的考试</a>
+                            </li>
+                                <%--
+                                     <li>
+                                         <a class="J_menuItem" href="#" title="试题查询">试题查询</a>
+                                     </li>--%>
                         </ul>
                     </li>
                 </sec:authorize>
@@ -114,7 +127,7 @@
         <div class="row content-tabs">
             <nav class="page-tabs J_menuTabs" id="tabNav">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="dashboard">首页</a>
+                    <a href="javascript:" class="active J_menuTab" data-id="dashboard">首页</a>
                 </div>
             </nav>
             <div class="btn-group roll-nav roll-right">
@@ -129,6 +142,11 @@
                     <li class="J_tabCloseOther"><a>关闭其他</a>
                     </li>
                 </ul>
+                <a id="changePasswordButton" type="button" class="roll-nav roll-right J_tabExit" data-toggle="modal"
+                   data-target="#editPasswordModal"
+                   onclick="openModal('${ctx}/admin/editPwd?','editPasswordModal')">
+                    修改密码
+                </a>
             </div>
             <a href="/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
@@ -145,6 +163,7 @@
     </div>
     <!--右侧部分结束-->
 </div>
+<div class="modal inmodal fade" id="editPasswordModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
 </body>
 </html>

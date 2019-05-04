@@ -37,6 +37,11 @@ public class PaperAction extends BaseAction {
     private List<Course> courseList;
     private PaperGeneratorObject paperGenerator;
     private List<ExamPaper> examPaperList;
+    private DifficultyType[] difficultyTypes = DifficultyType.values();
+    private Long courseId;
+    private Course course;
+    private List<Question> questionList;
+    private List<Long> questionIds;
 
 
     @Resource
@@ -52,6 +57,7 @@ public class PaperAction extends BaseAction {
     public String list(){
         logger.info("进入试卷列表页");
         examPaperList = paperManageService.listExamPaper();
+        courseList = courseManageService.listCourse();
         return SUCCESS;
     }
 
@@ -66,12 +72,35 @@ public class PaperAction extends BaseAction {
         return SUCCESS;
     }
 
-
+    /**
+     * 随机生成试卷
+     * @return
+     */
     @Action(value = "generate",results = {@Result(name = SUCCESS,type = REDIRECT,location = "list")})
     public String generate(){
         logger.info("生成试卷，生成器内容：");
         logger.info(paperGenerator.toString());
         paperManageService.generatePaper(paperGenerator);
+        return SUCCESS;
+    }
+
+    /**
+     * 去手动组卷页
+     * @return
+     */
+    @Action(value = "toManual",results = {@Result(name = SUCCESS,location = "/paper/manual-paper-modal.jsp")})
+    public String toManual(){
+        logger.info("手动组卷页");
+        logger.info("课程id：{}",courseId);
+        course = courseManageService.getCourse(courseId);
+        questionList = paperManageService.listQuestionForCourse(courseId);
+        return SUCCESS;
+    }
+
+    @Action(value = "manual",results = {@Result(name = SUCCESS,type = REDIRECT,location = "list")})
+    public String manual(){
+        logger.info("自动组卷，表单提交：");
+        paperManageService.manualPaper(paperGenerator);
         return SUCCESS;
     }
 }

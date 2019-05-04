@@ -51,27 +51,24 @@ public class PaperManageServiceImpl implements PaperManageService {
     @Override
     @Transactional
     public void generatePaper(PaperGeneratorObject generatorObject) {
-        ExamPaper examPaper = new ExamPaper();
         Course course = courseRepository.getOne(generatorObject.getCourseId());
-        examPaper.setCourse(course);
-        examPaper.setName(generatorObject.getPaperName());
-        examPaperRepository.save(examPaper);
+        ExamPaper examPaper = saveExamPaper(generatorObject);
         List<Question> allQuestions = new ArrayList<>();
         //选择题
         if(generatorObject.getChoiceCount()>0){
-            allQuestions.addAll(randomQuestion(QuestionType.CHOICE,generatorObject.getChoiceCount(),course));
+            allQuestions.addAll(randomQuestion(QuestionType.CHOICE,generatorObject.getChoiceCount(),course,generatorObject.getDifficulty()));
         }
         //填空题
         if(generatorObject.getFillCount()>0){
-            allQuestions.addAll(randomQuestion(QuestionType.FILL,generatorObject.getFillCount(),course));
+            allQuestions.addAll(randomQuestion(QuestionType.FILL,generatorObject.getFillCount(),course,generatorObject.getDifficulty()));
         }
         //问答题
         if(generatorObject.getAskCount()>0){
-            allQuestions.addAll(randomQuestion(QuestionType.ASK,generatorObject.getAskCount(),course));
+            allQuestions.addAll(randomQuestion(QuestionType.ASK,generatorObject.getAskCount(),course,generatorObject.getDifficulty()));
         }
         //简答题
         if(generatorObject.getEssayCount()>0){
-            allQuestions.addAll(randomQuestion(QuestionType.ESSAY,generatorObject.getEssayCount(),course));
+            allQuestions.addAll(randomQuestion(QuestionType.ESSAY,generatorObject.getEssayCount(),course,generatorObject.getDifficulty()));
         }
         //关联题目与试卷
         List<ExamPaperQuestion> paperQuestionList = new ArrayList<>();
@@ -86,13 +83,58 @@ public class PaperManageServiceImpl implements PaperManageService {
 
     /**
      * 随机选题
-     * @param questionType
-     * @param count
      * @return
      */
-    private List<Question> randomQuestion(QuestionType questionType,Integer count,Course course){
-        List<Question> questionList = questionRepository.listByTypeAndCourse(questionType,course);
+    private List<Question> randomQuestion(QuestionType questionType,Integer count,Course course,Integer difficulty){
+        List<Question> questionList = questionRepository.listByTypeAndCourseAndDifficulty(questionType,course,difficulty);
         Collections.shuffle(questionList);
-        return questionList.subList(0,count);
+        if(questionList.size()<=count){
+            return questionList;
+        }else{
+            return questionList.subList(0,count);
+        }
+    }
+
+    /**
+     * 获取某课程下的所有题目
+     *
+     * @param courseId
+     * @return
+     */
+    @Override
+    public List<Question> listQuestionForCourse(Long courseId) {
+        return questionRepository.listByCourseId(courseId);
+    }
+
+    /**
+     * 手动组卷
+     *
+     * @param generatorObject
+     */
+    @Override
+    @Transactional
+    public void manualPaper(PaperGeneratorObject generatorObject) {
+        ExamPaper examPaper = saveExamPaper(generatorObject);
+        //关联题目与试卷
+        List<ExamPaperQuestion> paperQuestionList = new ArrayList<>();
+        generatorObject.getQuestionIds().forEach(questionId->{
+            ExamPaperQuestion paperQuestion = new ExamPaperQuestion();
+            Question question = questionRepository.getOne(questionId);
+            paperQuestion.setExamPaper(examPaper);
+            paperQuestion.setQuestion(question);
+            paperQuestionList.add(paperQuestion);
+        });
+        examPaperQuestionRepository.saveAll(paperQuestionList);
+    }
+
+    private ExamPaper saveExamPaper(PaperGeneratorObject generatorObject){
+        ExamPaper examPaper = new ExamPaper();
+        Course course = courseRepository.getOne(generatorObject.getCourseId());
+        examPaper.setCourse(course);
+        examPaper.setName(generatorObject.getPaperName());
+        examPaper.setHours(generatorObject.getHours());
+        examPaper.setMinutes(generatorObject.getMinutes());
+        examPaperRepository.save(examPaper);
+        return examPaper;
     }
 }

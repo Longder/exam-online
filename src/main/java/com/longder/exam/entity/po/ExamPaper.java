@@ -27,6 +27,16 @@ public class ExamPaper extends BaseIdEntity{
     @Column(name = "name_")
     private String name;
     /**
+     * 考试时间（小时）
+     */
+    @Column(name = "hours_")
+    private Integer hours;
+    /**
+     * 考试时间(分钟)
+     */
+    @Column(name = "minutes_")
+    private Integer minutes;
+    /**
      * 选择题数量
      */
     @Transient
@@ -47,4 +57,5 @@ public class ExamPaper extends BaseIdEntity{
      */
     @Transient
     private Integer essayCount;
+
 }

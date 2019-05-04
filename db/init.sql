@@ -65,6 +65,8 @@ create table EXAM_PAPER
     id_ bigint auto_increment,
     course_id_ bigint null comment '课程id',
     name_ varchar(255) null comment '试卷名称',
+    hours_ int null,
+    minutes_ int null,
         primary key (id_)
 )
     comment '试卷';
@@ -87,6 +89,8 @@ create table EXAM
 	course_id_ bigint null comment '课程id',
 	grade_ varchar(50) null,
 	exam_paper_id_ bigint null,
+	is_complete_ bit null,
+	is_checked_  bit null,
 	constraint EXAM_pk
 		primary key (id_)
 )

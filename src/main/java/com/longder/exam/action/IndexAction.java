@@ -30,4 +30,13 @@ public class IndexAction extends BaseAction {
         logger.debug("仪表盘页面");
         return SUCCESS;
     }
+
+    /**
+     * 去修改密码页
+     * @return
+     */
+    @Action(value = "editPwd",results = {@Result(name = SUCCESS,location = "/user/updatePasswordModal.jsp")})
+    public String toEditPassword(){
+        return SUCCESS;
+    }
 }

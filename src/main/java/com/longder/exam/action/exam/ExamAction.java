@@ -35,6 +35,9 @@ public class ExamAction extends BaseAction {
     private List<ExamPaper> examPaperList;
     private Long examPaperId;
     private Exam exam;
+    private List<Exam> examList;
+    private Long examId;
+
 
 
     @Resource
@@ -47,7 +50,7 @@ public class ExamAction extends BaseAction {
      * @return
      */
     @Action(value = "toChoose",results = {@Result(name = SUCCESS,location = "/exam/choose-exam.jsp")})
-    public String list(){
+    public String toChoosePaper(){
         examPaperList = paperManageService.listExamPaper();
         return SUCCESS;
     }
@@ -60,6 +63,72 @@ public class ExamAction extends BaseAction {
     public String startExam(){
         logger.info("开始考试，选择的试卷Id：{}",examPaperId);
         exam = examManageService.initExam(examPaperId, Objects.requireNonNull(SecurityUtil.getCurrentUser()).getId());
+        return SUCCESS;
+    }
+
+    /**
+     * 完成考试
+     * @return
+     */
+    @Action(value = "completeExam",results = {@Result(name = SUCCESS,location = "/exam/exam-result.jsp")})
+    public String completeExam(){
+        logger.info("完成考试，考试id：{}",exam.getId());
+        exam = examManageService.completeExam(exam);
+        return SUCCESS;
+    }
+
+    /**
+     * 学生的个人考试列表
+     * @return
+     */
+    @Action(value = "listExamForStudent",
+            results = {@Result(name = SUCCESS,location = "/exam/exam-list-for-student.jsp")})
+    public String examListForStudent(){
+        examList = examManageService.listExamForStudent();
+        return SUCCESS;
+    }
+
+    /**
+     * 考试详情
+     * @return
+     */
+    @Action(value = "detail",results = {@Result(name = SUCCESS,location = "/exam/exam-result.jsp")})
+    public String examDetail(){
+        logger.info("考试详情,考试id:{}",examId);
+        exam = examManageService.getExam(examId);
+        return SUCCESS;
+    }
+
+    /**
+     * 老师查看的考试列表
+     * @return
+     */
+    @Action(value = "listExamForTeacher",
+            results = {@Result(name = SUCCESS,location = "/exam/exam-list-for-teacher.jsp")})
+    public String examListForTeacher(){
+        examList = examManageService.listExamForTeacher();
+        return SUCCESS;
+    }
+
+    /**
+     * 去阅卷
+     * @return
+     */
+    @Action(value = "toCheckExam",results = {@Result(name = SUCCESS,location = "/exam/exam-check.jsp")})
+    public String toCheckExam(){
+        logger.debug("去阅卷页面，考试id:{}",examId);
+        exam = examManageService.getExam(examId);
+        return SUCCESS;
+    }
+
+    /**
+     * 提交阅卷
+     * @return
+     */
+    @Action(value = "checkExam",results = {@Result(name = SUCCESS,type = REDIRECT,location = "listExamForTeacher")})
+    public String checkExam(){
+        logger.debug("提交了阅卷表单");
+        examManageService.checkExam(exam);
         return SUCCESS;
     }
 }

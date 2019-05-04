@@ -32,11 +32,23 @@
                         <input type="button" class="btn btn-success" data-toggle="modal"
                                data-target="#paperModal"
                                onclick="openModal('${ctx}/paper/toGenerate','paperModal')"
-                               value="生成试卷"/>
+                               value="自动生成试卷"/>
                         </span>
+
                     </div>
                     <div class="col-sm-9">
-
+                        <div class="form-inline">
+                            <label>选择课程：</label>
+                            <select id="selectedCourse" class="form-control">
+                                <c:forEach items="${courseList}" var="course">
+                                    <option value="${course.id}">${course.name}</option>
+                                </c:forEach>
+                            </select>
+                            <input id="to-manual-button" type="button" class="btn btn-warning" data-toggle="modal"
+                                   data-target="#paperModal"
+                                   onclick="openModal('${ctx}/paper/toManual?courseId=${courseList[0].id}','paperModal')"
+                                   value="手动组卷"/>
+                        </div>
                     </div>
                 </div>
                 <div class="table table-bordered table-hover">
@@ -75,5 +87,14 @@
 </div>
 <div class="modal inmodal fade" id="paperModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
+<script>
+    $(function(){
+        $("#selectedCourse").change(function(){
+            var courseId = $("#selectedCourse").val();
+            $("#to-manual-button").attr("onclick","openModal('${ctx}/paper/toManual?courseId="+courseId+"','paperModal')");
+        });
+    });
+
+</script>
 </body>
 </html>
