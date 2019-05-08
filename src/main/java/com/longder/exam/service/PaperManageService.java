@@ -36,4 +36,11 @@ public interface PaperManageService {
      * @param generatorObject
      */
     void manualPaper(PaperGeneratorObject generatorObject);
+
+    /**
+     * 获取试卷
+     * @param paperId
+     * @return
+     */
+    ExamPaper getPaper(Long paperId);
 }

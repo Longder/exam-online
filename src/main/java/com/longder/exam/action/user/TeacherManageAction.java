@@ -29,6 +29,7 @@ public class TeacherManageAction extends BaseAction {
      */
     private List<SysUser> teacherList;
     private SysUser teacher;
+    private Long teacherId;
 
     @Resource
     private UserManageService userManageService;
@@ -60,8 +61,40 @@ public class TeacherManageAction extends BaseAction {
     @Action(value = "add", results = {@Result(name = SUCCESS, type = REDIRECT, location = "list")})
     public String addStudent(){
         logger.debug("开始添加教师：{}",teacher.getName());
-        userManageService.saveUser(teacher, SysRole.ROLE_TEACHER);
+        userManageService.addUser(teacher, SysRole.ROLE_TEACHER);
         return SUCCESS;
     }
 
+    /**
+     * 去修改页面
+     * @return
+     */
+    @Action(value = "toUpdate",results = {@Result(name = SUCCESS,location = "/user/teacher/update-teacher-modal.jsp")})
+    public String toUpdateTeacher(){
+        logger.debug("去修改教师页面，教师id:{}",teacherId);
+        teacher = userManageService.getOneUser(teacherId);
+        return SUCCESS;
+    }
+
+    /**
+     * 修改教师
+     * @return
+     */
+    @Action(value = "update", results = {@Result(name = SUCCESS, type = REDIRECT, location = "list")})
+    public String updateTeacher(){
+        logger.debug("开始修改教师，教师id:{}",teacher.getId());
+        userManageService.updateUser(teacher);
+        return SUCCESS;
+    }
+
+    /**
+     * 删除教师
+     * @return
+     */
+    @Action(value = "delete", results = {@Result(name = SUCCESS, type = REDIRECT, location = "list")})
+    public String deleteTeacher(){
+        logger.debug("开始删除教师，教师id:{}",teacherId);
+        userManageService.deleteUser(teacherId);
+        return null;
+    }
 }

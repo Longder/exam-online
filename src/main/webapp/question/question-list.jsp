@@ -63,13 +63,13 @@
                                 <td>${question.difficulty}</td>
                                 <td>${question.score}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                            data-target="#questionModal">
-                                        修改
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
-                                        删除
-                                    </button>
+<%--                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"--%>
+<%--                                            data-target="#questionModal">--%>
+<%--                                        修改--%>
+<%--                                    </button>--%>
+<%--                                    <button type="button" class="btn btn-sm btn-danger">--%>
+<%--                                        删除--%>
+<%--                                    </button>--%>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -1,8 +1,10 @@
 package com.longder.exam.service.impl;
 
+import com.longder.exam.entity.po.Exam;
 import com.longder.exam.entity.po.SysRole;
 import com.longder.exam.entity.po.SysUser;
 import com.longder.exam.entity.po.SysUserRole;
+import com.longder.exam.repository.ExamRepository;
 import com.longder.exam.repository.SysUserRepository;
 import com.longder.exam.repository.SysUserRoleRepository;
 import com.longder.exam.service.UserManageService;
@@ -21,6 +23,8 @@ public class UserManageServiceImpl implements UserManageService {
     private SysUserRepository sysUserRepository;
     @Resource
     private SysUserRoleRepository sysUserRoleRepository;
+    @Resource
+    private ExamRepository examRepository;
     /**
      * 默认密码
      */
@@ -49,12 +53,58 @@ public class UserManageServiceImpl implements UserManageService {
      */
     @Override
     @Transactional
-    public void saveUser(SysUser sysUser, SysRole sysRole) {
+    public void addUser(SysUser sysUser, SysRole sysRole) {
         sysUser.setPassword(EncryptionUtil.encrypt(defaultPassword));
         sysUserRepository.save(sysUser);
         SysUserRole userRole = new SysUserRole();
         userRole.setSysUser(sysUser);
         userRole.setRole(sysRole);
         sysUserRoleRepository.save(userRole);
+    }
+
+    /**
+     * 获取一个用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public SysUser getOneUser(Long userId) {
+        return sysUserRepository.getOne(userId);
+    }
+
+    /**
+     * 修改用户
+     *
+     * @param sysUser
+     */
+    @Override
+    @Transactional
+    public void updateUser(SysUser sysUser) {
+        SysUser dbUser = sysUserRepository.getOne(sysUser.getId());
+        dbUser.setLoginName(sysUser.getLoginName());
+        dbUser.setName(sysUser.getName());
+        sysUserRepository.save(dbUser);
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param userId
+     */
+    @Override
+    @Transactional
+    public void deleteUser(Long userId) {
+        //查看这个用户的角色
+        List<SysUserRole> userRoleList = sysUserRoleRepository.listRolesByUserId(userId);
+        boolean isStudent = userRoleList.stream().anyMatch(userRole-> SysRole.ROLE_STUDENT.equals(userRole.getRole()));
+        if(isStudent){//是学生用户，需要删除学生参加的考试
+            SysUser student = sysUserRepository.getOne(userId);
+            List<Exam> examList = examRepository.listCompletedByUser(student);
+            if(examList.size()>0){
+                examRepository.deleteAll(examList);
+            }
+        }
+        sysUserRepository.deleteById(userId);
     }
 }

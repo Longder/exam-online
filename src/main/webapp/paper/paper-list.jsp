@@ -69,12 +69,9 @@
                                 <td>${paper.course.name}</td>
                                 <td>${paper.name}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-warning" >
+                                    <a href="${ctx}/paper/detail?paperId=${paper.id}" type="button" class="btn btn-sm btn-warning" >
                                         试卷详情
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
-                                        删除
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>

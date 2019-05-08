@@ -42,7 +42,8 @@ public class PaperAction extends BaseAction {
     private Course course;
     private List<Question> questionList;
     private List<Long> questionIds;
-
+    private Long paperId;
+    private ExamPaper examPaper;
 
     @Resource
     private CourseManageService courseManageService;
@@ -97,10 +98,26 @@ public class PaperAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * 手动组卷提交
+     * @return
+     */
     @Action(value = "manual",results = {@Result(name = SUCCESS,type = REDIRECT,location = "list")})
     public String manual(){
         logger.info("自动组卷，表单提交：");
         paperManageService.manualPaper(paperGenerator);
+        return SUCCESS;
+    }
+
+    /**
+     * 试卷详情
+     * @return
+     */
+    @Action(value = "detail",results = {@Result(name = SUCCESS,location = "/paper/paper-detail.jsp")})
+    public String detail(){
+        logger.debug("去详情页，试卷id:{}",paperId);
+        examPaper = paperManageService.getPaper(paperId);
+        questionList = examPaper.getQuestionList();
         return SUCCESS;
     }
 }

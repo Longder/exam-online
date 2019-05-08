@@ -2,6 +2,7 @@ package com.longder.exam.entity.po;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "SYS_USER")
+@Proxy(lazy = false)
 public class SysUser extends BaseIdEntity implements UserDetails {
 
     /**

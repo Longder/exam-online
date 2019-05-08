@@ -42,12 +42,12 @@
                 <div class="table table-bordered table-hover">
                     <table class="table table-striped table-bordered">
                         <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>姓名</th>
-                                <th>登陆名</th>
-                                <th>操作</th>
-                            </tr>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>登陆名</th>
+                            <th>操作</th>
+                        </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${studentList}" var="student" varStatus="loop">
@@ -57,12 +57,14 @@
                                 <td>${student.loginName}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                            data-target="#userModal">
+                                            data-target="#studentModal"
+                                            onclick="openModal('${ctx}/student/toUpdate?studentId=${student.id}','studentModal')">
                                         修改
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
+                                    <a href="${ctx}/student/delete?studentId=${student.id}" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('确定删除吗？')">
                                         删除
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>

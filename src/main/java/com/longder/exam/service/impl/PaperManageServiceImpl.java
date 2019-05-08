@@ -137,4 +137,22 @@ public class PaperManageServiceImpl implements PaperManageService {
         examPaperRepository.save(examPaper);
         return examPaper;
     }
+
+    /**
+     * 获取试卷
+     *
+     * @param paperId
+     * @return
+     */
+    @Override
+    public ExamPaper getPaper(Long paperId) {
+        ExamPaper examPaper = examPaperRepository.getOne(paperId);
+        List<ExamPaperQuestion> examPaperQuestionList = examPaperQuestionRepository.listByExamPaper(examPaper);
+        List<Question> questionList = new ArrayList<>();
+        examPaperQuestionList.forEach(examPaperQuestion -> {
+            questionList.add(examPaperQuestion.getQuestion());
+        });
+        examPaper.setQuestionList(questionList);
+        return examPaper;
+    }
 }

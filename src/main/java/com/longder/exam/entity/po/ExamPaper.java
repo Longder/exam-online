@@ -2,8 +2,10 @@ package com.longder.exam.entity.po;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 试卷实体类
@@ -13,6 +15,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "EXAM_PAPER")
+@Proxy(lazy = false)
 public class ExamPaper extends BaseIdEntity{
     /**
      * 所属课程
@@ -57,5 +60,10 @@ public class ExamPaper extends BaseIdEntity{
      */
     @Transient
     private Integer essayCount;
+    /**
+     * 试卷中的题目
+     */
+    @Transient
+    private List<Question> questionList;
 
 }

@@ -27,7 +27,7 @@ public class CourseAction extends BaseAction {
      * Field
      */
     private Course course;
-
+    private Long courseId;
     private List<Course> courseList;
 
     @Resource
@@ -40,7 +40,7 @@ public class CourseAction extends BaseAction {
      */
     @Action(value = "list",results = {@Result(name = SUCCESS,location = "/course/course-list.jsp")})
     public String list(){
-        logger.info("进入课程列表页");
+        logger.debug("进入课程列表页");
         courseList = courseManageService.listCourse();
         return SUCCESS;
     }
@@ -51,18 +51,10 @@ public class CourseAction extends BaseAction {
      */
     @Action(value = "toAdd",results = {@Result(name = SUCCESS,location = "/course/create-course-modal.jsp")})
     public String toAdd(){
-        logger.info("去修添加科目页");
+        logger.debug("去添加科目页");
         return SUCCESS;
     }
 
-    /**
-     * 去修改页
-     * @return
-     */
-    public String toUpdate(){
-        logger.info("去修改科目页");
-        return SUCCESS;
-    }
 
     /**
      * 添加
@@ -70,9 +62,32 @@ public class CourseAction extends BaseAction {
      */
     @Action(value = "add",results = {@Result(name = SUCCESS,type = REDIRECT,location = "list")})
     public String add(){
-        logger.info("添加课程表单提交");
-        logger.info("数据：{},{}",course.getName(),course.getDescription());
+        logger.debug("添加课程表单提交");
+        logger.debug("数据：{},{}",course.getName(),course.getDescription());
         courseManageService.saveCourse(course);
         return SUCCESS;
     }
+
+    /**
+     * 去修改页
+     * @return
+     */
+    @Action(value = "toUpdate",results = {@Result(name = SUCCESS,location = "/course/update-course-modal.jsp")})
+    public String toUpdate(){
+        logger.debug("去修改科目页,科目id:{}",courseId);
+        course = courseManageService.getCourse(courseId);
+        return SUCCESS;
+    }
+
+    /**
+     * 修改课程
+     * @return
+     */
+    @Action(value = "update",results = {@Result(name = SUCCESS,type = REDIRECT,location = "list")})
+    public String update(){
+        logger.debug("开始修改课程，id:{}",course.getId());
+        courseManageService.saveCourse(course);
+        return SUCCESS;
+    }
+
 }

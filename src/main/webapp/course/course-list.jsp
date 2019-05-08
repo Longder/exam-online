@@ -57,11 +57,9 @@
                                 <td>${course.description}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                            data-target="#courseModal">
+                                            data-target="#courseModal"
+                                            onclick="openModal('${ctx}/course/toUpdate?courseId=${course.id}','courseModal')">
                                         修改
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
-                                        删除
                                     </button>
                                 </td>
                             </tr>

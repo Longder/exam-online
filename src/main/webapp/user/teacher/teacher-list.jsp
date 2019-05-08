@@ -56,12 +56,15 @@
                                 <td>${teacher.name}</td>
                                 <td>${teacher.loginName}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-primary">
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#teacherModal"
+                                            onclick="openModal('${ctx}/teacher/toUpdate?teacherId=${teacher.id}','teacherModal')">
                                         修改
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger">
+                                    <a href="${ctx}/teacher/delete?teacherId=${teacher.id}" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('确定删除吗？')">
                                         删除
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
