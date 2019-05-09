@@ -45,4 +45,11 @@ public interface UserManageService {
      */
     void deleteUser(Long userId);
 
+    /**
+     * 根据登陆名查询用户的角色
+     * @param loginName
+     * @return
+     */
+    String getRoleNameByLoginName(String loginName);
+
 }

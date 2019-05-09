@@ -21,4 +21,8 @@ public class BaseAction extends ActionSupport {
      * Result类型，重定向
      */
     protected final String REDIRECT = "redirect";
+    /**
+     * Result类型，ajax
+     */
+    protected final String AJAX = "ajax";
 }

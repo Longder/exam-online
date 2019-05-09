@@ -26,20 +26,20 @@
         <h3>在线考试系统</h3>
         <form id="login-form" class="m-t" role="form" action="<s:url action="login_check"/>" method="post" target="_self">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" name="username"/>
+                <input type="text" class="form-control" placeholder="用户名" name="username" id="username"/>
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" placeholder="密码" name="password">
             </div>
             <div class="form-group">
-                <select class="form-control">
-                    <option>管理员</option>
-                    <option>教师</option>
-                    <option>学生</option>
+                <select id="role" class="form-control">
+                    <option value="ROLE_ADMIN">管理员</option>
+                    <option value="ROLE_TEACHER">教师</option>
+                    <option value="ROLE_STUDENT">学生</option>
                 </select>
             </div>
             <span class="text-danger">${SPRING_SECURITY_LAST_EXCEPTION.message}</span>
-            <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            <button id="login-button" type="submit" class="btn btn-primary block full-width m-b">登 录</button>
         </form>
     </div>
 </div>
@@ -47,7 +47,27 @@
 <script src="<s:url action="static/js/plugins/validate/jquery.validate.min.js"/>"></script>
 <script src="<s:url action="static/js/plugins/validate/messages_zh.min.js"/>"></script>
 <script type="text/javascript">
-
+$(function(){
+    $("#login-button").click(function(){
+        var flag = false;
+        $.ajax({
+            async:false,
+            dataType:'json',
+            data:{loginName:$("#username").val()},
+            url:"/user/checkRole",
+            success:function(data){
+                if("no"===data){
+                    alert("用户名不存在");
+                }else if($("#role").val()===data){
+                    flag = true;
+                }else{
+                    alert("用户角色不正确");
+                }
+            }
+        });
+        return flag;
+    });
+});
 </script>
 </body>
 </html>

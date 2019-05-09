@@ -12,6 +12,7 @@ import com.longder.exam.util.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -106,5 +107,27 @@ public class UserManageServiceImpl implements UserManageService {
             }
         }
         sysUserRepository.deleteById(userId);
+    }
+
+    /**
+     * 根据用户名查询用户的角色
+     *
+     * @param loginName
+     * @return
+     */
+    @Override
+    public String getRoleNameByLoginName(String loginName) {
+        SysUser sysUser = sysUserRepository.getByLoginName(loginName);
+        if(ObjectUtils.isEmpty(sysUser)){
+            return "no";
+        }else{
+            List<SysUserRole> userRoleList = sysUserRoleRepository.listRolesByUserId(sysUser.getId());
+            SysUserRole sysUserRole = userRoleList.get(0);
+            if(ObjectUtils.isEmpty(sysUserRole)){
+                return "no";
+            }else{
+                return sysUserRole.getRole().getName();
+            }
+        }
     }
 }
