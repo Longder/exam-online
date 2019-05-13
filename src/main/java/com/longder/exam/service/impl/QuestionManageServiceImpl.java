@@ -51,12 +51,26 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     }
 
     /**
-     * 题存储题目，新增和修改都走这个
+     * 存储题目，新增和修改都走这个
      *
      * @param question
      */
     @Override
     public void saveQuestion(Question question) {
+        //处理选择题的内容
+        if(QuestionType.CHOICE.equals(question.getType())){
+            StringBuilder sb = new StringBuilder(question.getContent());
+            sb.append("<br/>");
+            sb.append(" A：");
+            sb.append(question.getChoiceA());
+            sb.append(" B：");
+            sb.append(question.getChoiceB());
+            sb.append(" C：");
+            sb.append(question.getChoiceC());
+            sb.append(" D：");
+            sb.append(question.getChoiceD());
+            question.setContent(sb.toString());
+        }
         questionRepository.save(question);
     }
 

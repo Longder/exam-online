@@ -33,7 +33,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题类型<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="question.type">
+                                            <select id="question-type-select" class="form-control m-b" name="question.type">
                                                 <option value="">请选择</option>
                                                 <c:forEach items="${questionTypes}" var="type">
                                                     <option value="${type.name}">${type.displayName}</option>
@@ -67,6 +67,26 @@
                                             <textarea rows="10" type="text" class="form-control" name="question.content"></textarea>
                                         </div>
                                     </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div id="choice-detail" class="form-group" style="display: none;">
+                                        <label class="col-sm-2 control-label">选项A：<span class="text-danger">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="choiceA"/>
+                                        </div>
+                                        <label class="col-sm-2 control-label">选项B：<span class="text-danger">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="choiceB"/>
+                                        </div>
+                                        <label class="col-sm-2 control-label">选项C：<span class="text-danger">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="choiceC"/>
+                                        </div>
+                                        <label class="col-sm-2 control-label">选项D：<span class="text-danger">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="choiceD"/>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题答案<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
@@ -89,3 +109,15 @@
         </small>
     </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $("#question-type-select").change(function(){
+            console.log("选了选了：");
+            if($("#question-type-select").val()==="CHOICE"){
+                $("#choice-detail").show();
+            }else{
+                $("#choice-detail").hide();
+            }
+        });
+    });
+</script>

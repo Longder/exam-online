@@ -124,7 +124,7 @@
                         </c:forEach>
                         <div class="mail-box">
                             <div class="mail-body">
-                                <button class="btn btn-primary" type="submit">提交试卷</button>
+                                <button id="submit-button" class="btn btn-primary" type="submit">提交试卷</button>
                             </div>
                         </div>
                     </form>
@@ -161,6 +161,12 @@
     $(function(){
         //倒计时
         timer(intDiff);
+        console.log("定时的时间：");
+        //定时交卷
+        setTimeout(function(){
+            alert("考试时间到，即将自动交卷");
+            $("#submit-button").trigger('click');
+        },intDiff*1000);
     });
 </script>
 </body>

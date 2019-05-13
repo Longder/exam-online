@@ -52,4 +52,13 @@ public class Question extends BaseIdEntity{
     @JoinColumn(name = "course_id_")
     private Course course;
 
+    @Transient
+    private String choiceA;
+    @Transient
+    private String choiceB;
+    @Transient
+    private String choiceC;
+    @Transient
+    private String choiceD;
+
 }

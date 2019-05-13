@@ -53,4 +53,8 @@ public enum QuestionType {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    public boolean equals(QuestionType questionType){
+        return this.name.equals(questionType.getName());
+    }
 }

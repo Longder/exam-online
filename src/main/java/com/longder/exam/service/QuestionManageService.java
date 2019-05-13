@@ -20,7 +20,7 @@ public interface QuestionManageService {
 
 
     /**
-     * 存储科目，新增和修改都走这个
+     * 存储题目，新增和修改都走这个
      * @param question
      */
     void saveQuestion(Question question);
