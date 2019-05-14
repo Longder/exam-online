@@ -72,6 +72,9 @@
                                     <a href="${ctx}/paper/detail?paperId=${paper.id}" type="button" class="btn btn-sm btn-warning" >
                                         试卷详情
                                     </a>
+                                    <button onclick="deletePaper(${paper.id})" type="button" class="btn btn-sm btn-danger">
+                                        删除
+                                    </button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -91,6 +94,26 @@
             $("#to-manual-button").attr("onclick","openModal('${ctx}/paper/toManual?courseId="+courseId+"','paperModal')");
         });
     });
+
+    function deletePaper(id){
+        if(confirm("确定要删除吗？")){
+            $.ajax({
+                url: "/paper/delete",
+                type: "post",
+                async: false,
+                data: {
+                    paperId:id
+                },success: function (data) {
+                    if(data==="ok"){
+                        alert("删除成功");
+                    }else{
+                        alert("已经有完成的考试关联该试卷，删除失败");
+                    }
+                    window.location = "/paper/list";
+                }
+            });
+        }
+    }
 
 </script>
 </body>

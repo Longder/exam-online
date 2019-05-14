@@ -42,6 +42,23 @@
 
                     </div>
                 </div>
+                <form id="searchForm" method="post" action="${ctx}/question/list">
+                    <input type="hidden" value="1" name="submit"/>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>试题包含内容：</label>
+                                <input type="text" name="keyWord" placeholder="试题关键字" class="input-sm form-control" value="${keyWord}"/>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button style="margin-top: 20px;" id="searchSubmit" type="submit" class="btn btn-primary">查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="table table-bordered table-hover">
                     <table class="table table-striped table-bordered">
                         <thead>
@@ -63,13 +80,14 @@
                                 <td>${question.difficulty}</td>
                                 <td>${question.score}</td>
                                 <td>
-<%--                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"--%>
-<%--                                            data-target="#questionModal">--%>
-<%--                                        修改--%>
-<%--                                    </button>--%>
-<%--                                    <button type="button" class="btn btn-sm btn-danger">--%>
-<%--                                        删除--%>
-<%--                                    </button>--%>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#questionModal"
+                                            onclick="openModal('${ctx}/question/toUpdate?questionId=${question.id}','questionModal')">
+                                        修改
+                                    </button>
+                                    <button onclick="deleteQuestion(${question.id})" type="button" class="btn btn-sm btn-danger">
+                                        删除
+                                    </button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -141,5 +159,26 @@
     </div>
 </div>
 <jsp:include page="/import/Script.jsp"/>
+<script>
+    function deleteQuestion(questionId){
+        if(confirm("确定删除吗？")){
+            $.ajax({
+                url: "/question/delete",
+                type: "post",
+                async: false,
+                data: {
+                    questionId:questionId
+                },success: function (data) {
+                    if(data==="ok"){
+                        alert("删除成功");
+                    }else{
+                        alert("题目在试卷中已存在，删除失败");
+                    }
+                    window.location = "/question/list";
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>

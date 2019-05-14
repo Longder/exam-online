@@ -31,4 +31,12 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
      */
     @Query("SELECT q from Question q where q.course.id = :courseId")
     List<Question> listByCourseId(@Param("courseId") Long courseId);
+
+    /**
+     * 通过关键字查询
+     * @param keyWord
+     * @return
+     */
+    @Query("SELECT q from Question q where q.content like :keyWord")
+    List<Question> liseByKeyWord(@Param("keyWord")String keyWord);
 }

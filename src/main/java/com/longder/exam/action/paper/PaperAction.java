@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Namespace("/paper")
+@ParentPackage("json-default")
 public class PaperAction extends BaseAction {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,6 +46,8 @@ public class PaperAction extends BaseAction {
     private List<Long> questionIds;
     private Long paperId;
     private ExamPaper examPaper;
+    private String result;
+
 
     @Resource
     private CourseManageService courseManageService;
@@ -119,5 +123,16 @@ public class PaperAction extends BaseAction {
         examPaper = paperManageService.getPaper(paperId);
         questionList = examPaper.getQuestionList();
         return SUCCESS;
+    }
+
+    /**
+     * 删除试卷
+     * @return
+     */
+    @Action(value = "delete", results = {
+            @Result(name = "ajax", type = "json", params = { "root", "result" }) })
+    public String delete(){
+        result = paperManageService.deleteOnePaper(paperId);
+        return "ajax";
     }
 }

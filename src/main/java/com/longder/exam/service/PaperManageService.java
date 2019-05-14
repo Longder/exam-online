@@ -43,4 +43,11 @@ public interface PaperManageService {
      * @return
      */
     ExamPaper getPaper(Long paperId);
+
+    /**
+     * 删除试卷
+     * @param paperId
+     * @return
+     */
+    String deleteOnePaper(Long paperId);
 }

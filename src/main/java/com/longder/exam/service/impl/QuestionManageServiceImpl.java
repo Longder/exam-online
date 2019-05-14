@@ -4,8 +4,10 @@ import com.longder.exam.entity.dto.QuestionExcelObject;
 import com.longder.exam.entity.enumeration.DifficultyType;
 import com.longder.exam.entity.enumeration.QuestionType;
 import com.longder.exam.entity.po.Course;
+import com.longder.exam.entity.po.ExamPaperQuestion;
 import com.longder.exam.entity.po.Question;
 import com.longder.exam.repository.CourseRepository;
+import com.longder.exam.repository.ExamPaperQuestionRepository;
 import com.longder.exam.repository.QuestionRepository;
 import com.longder.exam.service.QuestionManageService;
 import org.jxls.reader.ReaderBuilder;
@@ -13,6 +15,7 @@ import org.jxls.reader.XLSReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.xml.sax.SAXException;
 
 import javax.annotation.Resource;
@@ -36,9 +39,21 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     private QuestionRepository questionRepository;
     @Resource
     private CourseRepository courseRepository;
-
+    @Resource
+    private ExamPaperQuestionRepository examPaperQuestionRepository;
     @Value("classpath:question-excel-config.xml")
     private org.springframework.core.io.Resource resource;
+
+    /**
+     * 查询获取一个题目
+     *
+     * @param questionId
+     * @return
+     */
+    @Override
+    public Question getOneQuestion(Long questionId) {
+        return questionRepository.getOne(questionId);
+    }
 
     /**
      * 题目列表
@@ -46,8 +61,13 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      * @return
      */
     @Override
-    public List<Question> listQuestion() {
-        return questionRepository.findAll();
+    public List<Question> listQuestion(String keyWord) {
+        if(ObjectUtils.isEmpty(keyWord)){
+            return questionRepository.findAll();
+        }else{
+            keyWord = "%"+keyWord+"%";
+            return questionRepository.liseByKeyWord(keyWord);
+        }
     }
 
     /**
@@ -107,6 +127,25 @@ public class QuestionManageServiceImpl implements QuestionManageService {
                 questionList.add(question);
             });
             questionRepository.saveAll(questionList);
+        }
+    }
+
+    /**
+     * 删除一个题目
+     *
+     * @param questionId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String deleteOneQuestion(Long questionId) {
+        Question question = questionRepository.getOne(questionId);
+        List<ExamPaperQuestion> paperQuestionList = examPaperQuestionRepository.listByQuestion(question);
+        if(paperQuestionList.size()==0){
+            questionRepository.deleteById(questionId);
+            return "ok";
+        }else{
+            return "no";
         }
     }
 }

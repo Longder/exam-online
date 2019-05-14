@@ -31,6 +31,10 @@ public class UserManageAction extends ActionSupport {
     @Resource
     private UserManageService userManageService;
 
+    /**
+     * 检查角色
+     * @return
+     */
     @Action(value = "checkRole", results = {
             @Result(name = "ajax", type = "json", params = { "root", "role" }) })
     public String getRoleByUser(){
@@ -39,6 +43,10 @@ public class UserManageAction extends ActionSupport {
         return "ajax";
     }
 
+    /**
+     * 修改密码
+     * @return
+     */
     @Action(value = "changePassword", results = {
             @Result(name = "ajax", type = "json", params = { "root", "result" }) })
     public String changePassword(){

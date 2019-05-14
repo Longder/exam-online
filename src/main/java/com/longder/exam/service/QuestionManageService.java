@@ -11,12 +11,18 @@ import java.util.List;
 public interface QuestionManageService {
 
 
+    /**
+     * 查询获取一个题目
+     * @param questionId
+     * @return
+     */
+    Question getOneQuestion(Long questionId);
 
     /**
      * 科目列表
      * @return
      */
-    List<Question> listQuestion();
+    List<Question> listQuestion(String keyWord);
 
 
     /**
@@ -29,4 +35,11 @@ public interface QuestionManageService {
      * 从excel导入题目
      */
     void importQuestionsFormExcel(Long courseId,File excelFile);
+
+    /**
+     * 删除一个题目
+     * @param questionId
+     * @return
+     */
+    String deleteOneQuestion(Long questionId);
 }

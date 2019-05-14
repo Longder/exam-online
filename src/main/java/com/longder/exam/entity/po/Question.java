@@ -4,6 +4,7 @@ import com.longder.exam.entity.enumeration.DifficultyType;
 import com.longder.exam.entity.enumeration.QuestionType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "QUESTION")
+@Proxy(lazy = false)
 public class Question extends BaseIdEntity{
     /**
      * 题目内容

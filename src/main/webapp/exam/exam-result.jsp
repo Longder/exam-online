@@ -28,7 +28,9 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-sm-3">
-                        <span class="input-group-btn"></span>
+                        <span class="input-group-btn">
+                            <button onclick="window.history.back()" type="button" class="btn btn-primary">返回</button>
+                        </span>
                     </div>
                     <div class="col-sm-9"></div>
                 </div>

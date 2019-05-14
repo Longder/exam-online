@@ -1,6 +1,7 @@
 package com.longder.exam.repository;
 
 import com.longder.exam.entity.po.Exam;
+import com.longder.exam.entity.po.ExamPaper;
 import com.longder.exam.entity.po.SysUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,11 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
      */
     @Query("select e from Exam e where e.isComplete = true")
     List<Exam> listCompleted();
+
+    /**
+     * 根据试卷 查询该试卷下已经完成的考试
+     * @return
+     */
+    @Query("select e from Exam e where e.isComplete = true and e.examPaper = :examPaper")
+    List<Exam> listCompletedByPaper(@Param("examPaper") ExamPaper examPaper);
 }

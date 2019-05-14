@@ -2,14 +2,8 @@ package com.longder.exam.service.impl;
 
 import com.longder.exam.entity.dto.PaperGeneratorObject;
 import com.longder.exam.entity.enumeration.QuestionType;
-import com.longder.exam.entity.po.Course;
-import com.longder.exam.entity.po.ExamPaper;
-import com.longder.exam.entity.po.ExamPaperQuestion;
-import com.longder.exam.entity.po.Question;
-import com.longder.exam.repository.CourseRepository;
-import com.longder.exam.repository.ExamPaperQuestionRepository;
-import com.longder.exam.repository.ExamPaperRepository;
-import com.longder.exam.repository.QuestionRepository;
+import com.longder.exam.entity.po.*;
+import com.longder.exam.repository.*;
 import com.longder.exam.service.PaperManageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +27,8 @@ public class PaperManageServiceImpl implements PaperManageService {
     private ExamPaperRepository examPaperRepository;
     @Resource
     private ExamPaperQuestionRepository examPaperQuestionRepository;
+    @Resource
+    private ExamRepository examRepository;
 
     /**
      * 试卷列表
@@ -154,5 +150,26 @@ public class PaperManageServiceImpl implements PaperManageService {
         });
         examPaper.setQuestionList(questionList);
         return examPaper;
+    }
+
+    /**
+     * 删除试卷
+     *
+     * @param paperId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String deleteOnePaper(Long paperId) {
+        //查询是否有已经完成的考试
+        ExamPaper examPaper = examPaperRepository.getOne(paperId);
+        List<Exam> examList = examRepository.listCompletedByPaper(examPaper);
+        if(examList.size()==0){
+            examPaperRepository.deleteById(paperId);
+            return "ok";
+        }else{
+            return "no";
+        }
+
     }
 }

@@ -24,6 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Namespace("/question")
+@ParentPackage("json-default")
 public class QuestionAction extends BaseAction {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -36,7 +37,9 @@ public class QuestionAction extends BaseAction {
     private Question question;
     private List<Question> questionList;
     private Long courseId;
-
+    private String result;
+    private Long questionId;
+    private String keyWord;
 
     private File upload;
 
@@ -53,8 +56,9 @@ public class QuestionAction extends BaseAction {
     @Action(value = "list", results = {@Result(name = SUCCESS, location = "/question/question-list.jsp")})
     public String list() {
         logger.info("进入题目列表页");
+        logger.info("关键字：{}",keyWord);
         courseList = courseManageService.listCourse();
-        questionList = questionManageService.listQuestion();
+        questionList = questionManageService.listQuestion(keyWord);
         return SUCCESS;
     }
 
@@ -101,6 +105,41 @@ public class QuestionAction extends BaseAction {
         logger.info("进入文件上传Action");
         logger.info("课程id：{}",courseId);
         questionManageService.importQuestionsFormExcel(courseId,upload);
+        return SUCCESS;
+    }
+
+    /**
+     * 删除题目
+     * @return
+     */
+    @Action(value = "delete", results = {
+            @Result(name = "ajax", type = "json", params = { "root", "result" }) })
+    public String delete(){
+        logger.debug("删除一个题目,题目id:{}",questionId);
+        result = questionManageService.deleteOneQuestion(questionId);
+        return "ajax";
+    }
+
+    /**
+     * 去修改题目
+     * @return
+     */
+    @Action(value = "toUpdate", results = {@Result(name = SUCCESS, location = "/question/update-question-modal.jsp")})
+    public String toUpdate(){
+        logger.debug("去修改题目,题目id:{}",questionId);
+        courseList = courseManageService.listCourse();
+        question = questionManageService.getOneQuestion(questionId);
+        return SUCCESS;
+    }
+
+    /**
+     * 修改题目
+     * @return
+     */
+    @Action(value = "update", results = {@Result(name = SUCCESS, type = REDIRECT, location = "list")})
+    public String update(){
+        logger.debug("开始修改题目。");
+        questionManageService.saveQuestion(question);
         return SUCCESS;
     }
 }
