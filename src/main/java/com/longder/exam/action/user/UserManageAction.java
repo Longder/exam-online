@@ -25,6 +25,8 @@ public class UserManageAction extends ActionSupport {
      */
     private String loginName;
     private String role;
+    private String newPassword;
+    private String result;
 
     @Resource
     private UserManageService userManageService;
@@ -34,6 +36,14 @@ public class UserManageAction extends ActionSupport {
     public String getRoleByUser(){
         logger.debug("ajax获取用户角色,登陆名:{}",loginName);
         role = userManageService.getRoleNameByLoginName(loginName);
+        return "ajax";
+    }
+
+    @Action(value = "changePassword", results = {
+            @Result(name = "ajax", type = "json", params = { "root", "result" }) })
+    public String changePassword(){
+        userManageService.changePassword(newPassword);
+        result = "ok";
         return "ajax";
     }
 }

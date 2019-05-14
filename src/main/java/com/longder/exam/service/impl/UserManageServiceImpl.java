@@ -7,6 +7,7 @@ import com.longder.exam.entity.po.SysUserRole;
 import com.longder.exam.repository.ExamRepository;
 import com.longder.exam.repository.SysUserRepository;
 import com.longder.exam.repository.SysUserRoleRepository;
+import com.longder.exam.security.SecurityUtil;
 import com.longder.exam.service.UserManageService;
 import com.longder.exam.util.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -129,5 +130,19 @@ public class UserManageServiceImpl implements UserManageService {
                 return sysUserRole.getRole().getName();
             }
         }
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param newPassword
+     */
+    @Override
+    @Transactional
+    public void changePassword(String newPassword) {
+        SysUser sysUser = SecurityUtil.getCurrentUser();
+        assert sysUser != null;
+        sysUser.setPassword(EncryptionUtil.encrypt(newPassword.trim()));
+        sysUserRepository.save(sysUser);
     }
 }

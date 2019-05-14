@@ -52,4 +52,10 @@ public interface UserManageService {
      */
     String getRoleNameByLoginName(String loginName);
 
+    /**
+     * 修改密码
+     * @param newPassword
+     */
+    void changePassword(String newPassword);
+
 }
