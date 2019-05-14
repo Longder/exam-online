@@ -107,7 +107,7 @@
             type: "post",
             async: false,
             data: {
-                password: password,
+                newPassword: password,
             },success: function (data) {
                 if(data==="ok"){
                     swal({
