@@ -109,14 +109,14 @@
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group" id="answer-normal" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
+                                    <div class="form-group" id="answer-normal" <c:if test="${question.type.name=='CHOICE'}">style="display: none;"</c:if>>
                                         <label class="col-sm-2 control-label">试题答案<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input <c:if test="${question.type.name=='CHOICE'}">disabled</c:if> type="text" class="form-control" name="question.answer" value="${question.answer}"/>
                                         </div>
                                     </div>
-                                    <div class="form-group" id="answer-for-choice" <c:if test="${question.type.name=='CHOICE'}">style="display: none;"</c:if>>
+                                    <div class="form-group" id="answer-for-choice" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
                                         <label class="col-sm-2 control-label">试题答案<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
