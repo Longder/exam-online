@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 课程实体
@@ -27,4 +25,10 @@ public class Course extends BaseIdEntity{
      */
     @Column(name = "description_")
     private String description;
+    /**
+     * 该课程的老师
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id_")
+    private SysUser teacher;
 }

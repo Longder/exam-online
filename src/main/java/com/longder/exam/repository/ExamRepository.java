@@ -29,6 +29,13 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
     List<Exam> listCompleted();
 
     /**
+     * 查询某老师下课程包括的已经完成的考试
+     * @return
+     */
+    @Query("select e from Exam e where e.isComplete = true and e.course.teacher = :teacher")
+    List<Exam> listCompletedByTeacher(@Param("teacher") SysUser teacher);
+
+    /**
      * 根据试卷 查询该试卷下已经完成的考试
      * @return
      */

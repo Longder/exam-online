@@ -49,6 +49,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">
+                            <i class="fa fa-file-code-o"></i>
+                            <span class="nav-label">科目管理</span>
+                        </a>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ROLE_TEACHER')">
                     <li>
@@ -58,9 +64,9 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>
-                            </li>
+<%--                            <li>--%>
+<%--                                <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>--%>
+<%--                            </li>--%>
                             <li>
                                 <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">试题管理</a>
                             </li>

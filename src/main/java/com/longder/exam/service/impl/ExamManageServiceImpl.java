@@ -111,7 +111,8 @@ public class ExamManageServiceImpl implements ExamManageService {
      */
     @Override
     public List<Exam> listExamForTeacher() {
-        return examRepository.listCompleted();
+        SysUser currentUser = SecurityUtil.getCurrentUser();
+        return examRepository.listCompletedByTeacher(currentUser);
     }
 
     /**

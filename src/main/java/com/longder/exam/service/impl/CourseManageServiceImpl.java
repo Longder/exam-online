@@ -1,7 +1,9 @@
 package com.longder.exam.service.impl;
 
 import com.longder.exam.entity.po.Course;
+import com.longder.exam.entity.po.SysUser;
 import com.longder.exam.repository.CourseRepository;
+import com.longder.exam.security.SecurityUtil;
 import com.longder.exam.service.CourseManageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,17 @@ public class CourseManageServiceImpl implements CourseManageService {
     @Override
     public List<Course> listCourse() {
         return courseRepository.findAll();
+    }
+
+    /**
+     * 当前登录教师下的课程
+     *
+     * @return
+     */
+    @Override
+    public List<Course> listCourseByCurrentTeacher() {
+        SysUser teacher = SecurityUtil.getCurrentUser();
+        return courseRepository.listByTeacher(teacher);
     }
 
     /**

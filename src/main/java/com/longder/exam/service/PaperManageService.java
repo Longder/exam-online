@@ -19,6 +19,12 @@ public interface PaperManageService {
     List<ExamPaper> listExamPaper();
 
     /**
+     * 当前教师下的课程的试卷
+     * @return
+     */
+    List<ExamPaper> listExamPaperForCurrentTeacher();
+
+    /**
      * 生成试卷
      * @param generatorObject
      */

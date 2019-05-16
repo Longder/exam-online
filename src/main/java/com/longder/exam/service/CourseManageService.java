@@ -15,6 +15,12 @@ public interface CourseManageService {
      */
     List<Course> listCourse();
 
+    /**
+     * 当前登录教师下的课程
+     * @return
+     */
+    List<Course> listCourseByCurrentTeacher();
+
 
     /**
      * 存储科目，新增和修改都走这个

@@ -4,6 +4,7 @@ import com.longder.exam.entity.dto.PaperGeneratorObject;
 import com.longder.exam.entity.enumeration.QuestionType;
 import com.longder.exam.entity.po.*;
 import com.longder.exam.repository.*;
+import com.longder.exam.security.SecurityUtil;
 import com.longder.exam.service.PaperManageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,17 @@ public class PaperManageServiceImpl implements PaperManageService {
     @Override
     public List<ExamPaper> listExamPaper() {
         return examPaperRepository.findAll();
+    }
+
+    /**
+     * 当前教师下的课程的试卷
+     *
+     * @return
+     */
+    @Override
+    public List<ExamPaper> listExamPaperForCurrentTeacher() {
+        SysUser teacher = SecurityUtil.getCurrentUser();
+        return examPaperRepository.listByTeacher(teacher);
     }
 
     /**

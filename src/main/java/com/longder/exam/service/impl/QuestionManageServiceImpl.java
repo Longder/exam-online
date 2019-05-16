@@ -6,9 +6,11 @@ import com.longder.exam.entity.enumeration.QuestionType;
 import com.longder.exam.entity.po.Course;
 import com.longder.exam.entity.po.ExamPaperQuestion;
 import com.longder.exam.entity.po.Question;
+import com.longder.exam.entity.po.SysUser;
 import com.longder.exam.repository.CourseRepository;
 import com.longder.exam.repository.ExamPaperQuestionRepository;
 import com.longder.exam.repository.QuestionRepository;
+import com.longder.exam.security.SecurityUtil;
 import com.longder.exam.service.QuestionManageService;
 import org.jxls.reader.ReaderBuilder;
 import org.jxls.reader.XLSReader;
@@ -60,11 +62,12 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      */
     @Override
     public List<Question> listQuestion(String keyWord) {
+        SysUser teacher = SecurityUtil.getCurrentUser();
         if (ObjectUtils.isEmpty(keyWord)) {
-            return questionRepository.findAll();
+            return questionRepository.listByTeacher(teacher);
         } else {
             keyWord = "%" + keyWord + "%";
-            return questionRepository.liseByKeyWord(keyWord);
+            return questionRepository.listByTeacherAndKeyWord(teacher,keyWord);
         }
     }
 

@@ -31,6 +31,17 @@
                                             <textarea type="text" class="form-control" name="course.description"></textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">管理教师<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <select id="question-type-select" class="form-control m-b"
+                                                    name="course.teacher.id">
+                                                <c:forEach items="${teacherList}" var="teacher">
+                                                    <option value="${teacher.id}">${teacher.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">

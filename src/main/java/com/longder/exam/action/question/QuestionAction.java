@@ -57,7 +57,7 @@ public class QuestionAction extends BaseAction {
     public String list() {
         logger.info("进入题目列表页");
         logger.info("关键字：{}",keyWord);
-        courseList = courseManageService.listCourse();
+        courseList = courseManageService.listCourseByCurrentTeacher();
         questionList = questionManageService.listQuestion(keyWord);
         return SUCCESS;
     }
@@ -70,7 +70,7 @@ public class QuestionAction extends BaseAction {
     @Action(value = "toAdd", results = {@Result(name = SUCCESS, location = "/question/create-question-modal.jsp")})
     public String toAdd() {
         logger.info("去修添加题目页");
-        courseList = courseManageService.listCourse();
+        courseList = courseManageService.listCourseByCurrentTeacher();
         return SUCCESS;
     }
 
@@ -127,7 +127,7 @@ public class QuestionAction extends BaseAction {
     @Action(value = "toUpdate", results = {@Result(name = SUCCESS, location = "/question/update-question-modal.jsp")})
     public String toUpdate(){
         logger.debug("去修改题目,题目id:{}",questionId);
-        courseList = courseManageService.listCourse();
+        courseList = courseManageService.listCourseByCurrentTeacher();
         question = questionManageService.getOneQuestion(questionId);
         return SUCCESS;
     }

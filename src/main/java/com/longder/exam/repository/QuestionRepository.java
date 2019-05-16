@@ -3,6 +3,7 @@ package com.longder.exam.repository;
 import com.longder.exam.entity.enumeration.QuestionType;
 import com.longder.exam.entity.po.Course;
 import com.longder.exam.entity.po.Question;
+import com.longder.exam.entity.po.SysUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,4 +40,21 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
      */
     @Query("SELECT q from Question q where q.content like :keyWord")
     List<Question> liseByKeyWord(@Param("keyWord")String keyWord);
+
+    /**
+     * 查询老师所管理的课程的题目
+     * @param teacher
+     * @return
+     */
+    @Query("SELECT q from Question q where q.course.teacher = :teacher")
+    List<Question> listByTeacher(@Param("teacher") SysUser teacher);
+
+    /**
+     * 查询老师所管理的课程的题目，包括关键字过滤
+     * @param teacher
+     * @param keyWord
+     * @return
+     */
+    @Query("SELECT q from Question q where q.course.teacher = :teacher and q.content like :keyWord")
+    List<Question> listByTeacherAndKeyWord(@Param("teacher") SysUser teacher,@Param("keyWord")String keyWord);
 }

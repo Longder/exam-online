@@ -46,6 +46,7 @@
                             <th>序号</th>
                             <th>课程名称</th>
                             <th>课程描述</th>
+                            <th>负责教师</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -55,6 +56,7 @@
                                 <td>${loop.index+1}</td>
                                 <td>${course.name}</td>
                                 <td>${course.description}</td>
+                                <td>${course.teacher.name}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                             data-target="#courseModal"

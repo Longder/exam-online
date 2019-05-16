@@ -29,7 +29,8 @@ create table COURSE
 	id_ bigint auto_increment comment '主键'
 		primary key,
 	name_ varchar(100) null comment '课程名称',
-	description_ varchar(255) null comment '课程描述'
+	description_ varchar(255) null comment '课程描述',
+	teacher_id_ bigint
 )
 comment '课程表';
 

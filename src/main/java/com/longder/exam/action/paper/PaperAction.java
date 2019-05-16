@@ -61,8 +61,8 @@ public class PaperAction extends BaseAction {
     @Action(value = "list",results = {@Result(name = SUCCESS,location = "/paper/paper-list.jsp")})
     public String list(){
         logger.info("进入试卷列表页");
-        examPaperList = paperManageService.listExamPaper();
-        courseList = courseManageService.listCourse();
+        examPaperList = paperManageService.listExamPaperForCurrentTeacher();
+        courseList = courseManageService.listCourseByCurrentTeacher();
         return SUCCESS;
     }
 
@@ -73,7 +73,7 @@ public class PaperAction extends BaseAction {
     @Action(value = "toGenerate",results = {@Result(name = SUCCESS,location = "/paper/generate-paper-modal.jsp")})
     public String toGenerate(){
         logger.info("去生成试卷！");
-        courseList = courseManageService.listCourse();
+        courseList = courseManageService.listCourseByCurrentTeacher();
         return SUCCESS;
     }
 

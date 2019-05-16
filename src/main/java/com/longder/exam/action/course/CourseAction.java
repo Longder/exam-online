@@ -2,7 +2,9 @@ package com.longder.exam.action.course;
 
 import com.longder.exam.action.BaseAction;
 import com.longder.exam.entity.po.Course;
+import com.longder.exam.entity.po.SysUser;
 import com.longder.exam.service.CourseManageService;
+import com.longder.exam.service.UserManageService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.struts2.convention.annotation.Action;
@@ -29,9 +31,12 @@ public class CourseAction extends BaseAction {
     private Course course;
     private Long courseId;
     private List<Course> courseList;
+    private List<SysUser> teacherList;
 
     @Resource
     private CourseManageService courseManageService;
+    @Resource
+    private UserManageService userManageService;
 
 
     /**
@@ -52,6 +57,7 @@ public class CourseAction extends BaseAction {
     @Action(value = "toAdd",results = {@Result(name = SUCCESS,location = "/course/create-course-modal.jsp")})
     public String toAdd(){
         logger.debug("去添加科目页");
+        teacherList = userManageService.listTeacher();
         return SUCCESS;
     }
 
@@ -76,6 +82,7 @@ public class CourseAction extends BaseAction {
     public String toUpdate(){
         logger.debug("去修改科目页,科目id:{}",courseId);
         course = courseManageService.getCourse(courseId);
+        teacherList = userManageService.listTeacher();
         return SUCCESS;
     }
 
