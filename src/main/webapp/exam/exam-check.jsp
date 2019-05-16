@@ -70,22 +70,22 @@
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}A" type="radio" value="A"
                                                        <c:if test="${detail.answer=='A'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}A">A</label>
+                                                <label for="Q${detail.question.id}A">A.${detail.question.choiceA}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}B" type="radio" value="B"
                                                        <c:if test="${detail.answer=='B'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}B">B</label>
+                                                <label for="Q${detail.question.id}B">B.${detail.question.choiceB}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}C" type="radio" value="C"
                                                        <c:if test="${detail.answer=='C'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}C">C</label>
+                                                <label for="Q${detail.question.id}C">C.${detail.question.choiceC}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}D" type="radio" value="D"
                                                        <c:if test="${detail.answer=='D'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}D">D</label>
+                                                <label for="Q${detail.question.id}D">D.${detail.question.choiceD}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='FILL'}">

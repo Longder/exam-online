@@ -50,7 +50,7 @@
                                 <td>${paper.course.name}</td>
                                 <td>${paper.name}</td>
                                 <td>
-                                    <a href="${ctx}/exam/startExam?examPaperId=${paper.id}" class="btn btn-sm btn-warning" >
+                                    <a onclick="return validExam(${paper.id})" href="${ctx}/exam/startExam?examPaperId=${paper.id}"  class="btn btn-sm btn-warning" >
                                         开始考试
                                     </a>
                                 </td>
@@ -65,5 +65,26 @@
 </div>
 <div class="modal inmodal fade" id="paperModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
+<script type="text/javascript">
+    //验证考试
+    function validExam(examPaperId){
+        var canChoose = false;
+        $.ajax({
+            url: "/exam/validExam",
+            type: "post",
+            async: false,
+            data: {
+                examPaperId:examPaperId
+            },success: function (data) {
+                if(data==="ok"){
+                    canChoose = true;
+                }else{
+                    alert("你已经参加过该试卷的考试。");
+                }
+            }
+        });
+        return canChoose;
+    }
+</script>
 </body>
 </html>

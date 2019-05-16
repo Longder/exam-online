@@ -16,12 +16,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.xml.sax.SAXException;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,10 +60,10 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      */
     @Override
     public List<Question> listQuestion(String keyWord) {
-        if(ObjectUtils.isEmpty(keyWord)){
+        if (ObjectUtils.isEmpty(keyWord)) {
             return questionRepository.findAll();
-        }else{
-            keyWord = "%"+keyWord+"%";
+        } else {
+            keyWord = "%" + keyWord + "%";
             return questionRepository.liseByKeyWord(keyWord);
         }
     }
@@ -76,20 +74,14 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      * @param question
      */
     @Override
+    @Transactional
     public void saveQuestion(Question question) {
-        //处理选择题的内容
-        if(QuestionType.CHOICE.equals(question.getType())){
-            StringBuilder sb = new StringBuilder(question.getContent());
-            sb.append("<br/>");
-            sb.append(" A：");
-            sb.append(question.getChoiceA());
-            sb.append(" B：");
-            sb.append(question.getChoiceB());
-            sb.append(" C：");
-            sb.append(question.getChoiceC());
-            sb.append(" D：");
-            sb.append(question.getChoiceD());
-            question.setContent(sb.toString());
+        //处理非选择题的内容
+        if (!QuestionType.CHOICE.equals(question.getType())) {
+            question.setChoiceA(null);
+            question.setChoiceB(null);
+            question.setChoiceC(null);
+            question.setChoiceD(null);
         }
         questionRepository.save(question);
     }
@@ -101,7 +93,7 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      */
     @Override
     @Transactional
-    public void importQuestionsFormExcel(Long courseId,File excelFile) {
+    public void importQuestionsFormExcel(Long courseId, File excelFile) {
         XLSReader mainReader;
         final List<QuestionExcelObject> resultList = new ArrayList<>();
         final Map<String, Object> beans = new HashMap<>();
@@ -109,20 +101,26 @@ public class QuestionManageServiceImpl implements QuestionManageService {
             InputStream inputStream = new FileInputStream(excelFile);
             mainReader = ReaderBuilder.buildFromXML(resource.getInputStream());
             beans.put("objs", resultList);
-            mainReader.read(inputStream,beans);
+            mainReader.read(inputStream, beans);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(resultList.size()>0){
+        if (resultList.size() > 0) {
             Course course = courseRepository.getOne(courseId);
             List<Question> questionList = new ArrayList<>();
-            resultList.forEach(result->{
+            resultList.forEach(result -> {
                 Question question = new Question();
-                question.setContent(result.getContent().replaceAll("\n","<br/>").replaceAll(" ","&nbsp;"));
+                question.setContent(result.getContent().replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;"));
                 question.setType(QuestionType.fromValue(result.getType()));
                 question.setDifficulty(DifficultyType.fromName(result.getDifficulty()).getValue());
                 question.setScore(Double.parseDouble(result.getScore()));
                 question.setAnswer(result.getAnswer());
+                if(QuestionType.CHOICE.equals(question.getType())){
+                    question.setChoiceA(result.getChoiceA());
+                    question.setChoiceB(result.getChoiceB());
+                    question.setChoiceC(result.getChoiceC());
+                    question.setChoiceD(result.getChoiceD());
+                }
                 question.setCourse(course);
                 questionList.add(question);
             });
@@ -141,10 +139,10 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     public String deleteOneQuestion(Long questionId) {
         Question question = questionRepository.getOne(questionId);
         List<ExamPaperQuestion> paperQuestionList = examPaperQuestionRepository.listByQuestion(question);
-        if(paperQuestionList.size()==0){
+        if (paperQuestionList.size() == 0) {
             questionRepository.deleteById(questionId);
             return "ok";
-        }else{
+        } else {
             return "no";
         }
     }

@@ -54,13 +54,25 @@ public class Question extends BaseIdEntity{
     @JoinColumn(name = "course_id_")
     private Course course;
 
-    @Transient
+    /**
+     * 选项A
+     */
+    @Column(name = "choice_A_")
     private String choiceA;
-    @Transient
+    /**
+     * 选项B
+     */
+    @Column(name = "choice_B_")
     private String choiceB;
-    @Transient
+    /**
+     * 选项C
+     */
+    @Column(name = "choice_C_")
     private String choiceC;
-    @Transient
+    /**
+     * 选项D
+     */
+    @Column(name = "choice_D_")
     private String choiceD;
 
 }

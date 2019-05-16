@@ -54,6 +54,10 @@ create table QUESTION
 	score_ decimal null comment '分数',
 	answer_ varchar(100) null,
 	course_id_ bigint comment '试题所属科目',
+	choice_A_ varchar(100),
+    choice_B_ varchar(100),
+    choice_C_ varchar(100),
+    choice_D_ varchar(100),
 	constraint QUESTION_pk
 		primary key (id_)
 )

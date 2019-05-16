@@ -34,4 +34,10 @@ public interface ExamRepository extends JpaRepository<Exam,Long> {
      */
     @Query("select e from Exam e where e.isComplete = true and e.examPaper = :examPaper")
     List<Exam> listCompletedByPaper(@Param("examPaper") ExamPaper examPaper);
+
+    /**
+     * 根据试卷和学生id，查询已完成的考试
+     */
+    @Query("select e from Exam e where e.isComplete = true and e.examPaper = :examPaper and e.student = :student")
+    List<Exam> listCompletedByPaperAndStudent(@Param("examPaper") ExamPaper examPaper,@Param("student") SysUser student);
 }
