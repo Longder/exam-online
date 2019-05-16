@@ -129,6 +129,7 @@
                                 <button id="submit-button" class="btn btn-primary" type="submit">提交试卷</button>
                             </div>
                         </div>
+                        <input type="hidden" name="source" value="paper"/>
                     </form>
                 </div>
             </div>

@@ -29,7 +29,12 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <span class="input-group-btn">
-                            <a href="${ctx}/exam/listExamForStudent" type="button" class="btn btn-primary">返回</a>
+                            <c:if test="${source=='list'}">
+                                <button onclick="window.history.back()" type="button" class="btn btn-primary">返回</button>
+                            </c:if>
+                            <c:if test="${source=='paper'}">
+                                <a href="${ctx}/exam/toChoose" type="button" class="btn btn-primary">返回</a>
+                            </c:if>
                         </span>
                     </div>
                     <div class="col-sm-9"></div>

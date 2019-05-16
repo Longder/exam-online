@@ -63,7 +63,7 @@
                                     </c:choose>
                                 </td>
                                 <td>
-                                    <a href="${ctx}/exam/detail?examId=${exam.id}" class="btn btn-sm btn-primary">
+                                    <a href="${ctx}/exam/detail?examId=${exam.id}&source=list" class="btn btn-sm btn-primary">
                                         查看详情
                                     </a>
                                 </td>

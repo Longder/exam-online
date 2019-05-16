@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import java.util.Objects;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Namespace("/exam")
+@ParentPackage("json-default")
 public class ExamAction extends BaseAction {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
@@ -37,7 +39,8 @@ public class ExamAction extends BaseAction {
     private Exam exam;
     private List<Exam> examList;
     private Long examId;
-
+    private String result;
+    private String source;
 
 
     @Resource
@@ -95,6 +98,7 @@ public class ExamAction extends BaseAction {
     @Action(value = "detail",results = {@Result(name = SUCCESS,location = "/exam/exam-result.jsp")})
     public String examDetail(){
         logger.info("考试详情,考试id:{}",examId);
+        System.out.println(source);
         exam = examManageService.getExam(examId);
         return SUCCESS;
     }
@@ -131,4 +135,17 @@ public class ExamAction extends BaseAction {
         examManageService.checkExam(exam);
         return SUCCESS;
     }
+
+    /**
+     * 验证考试
+     * @return
+     */
+    @Action(value = "validExam", results = {
+            @Result(name = "ajax", type = "json", params = { "root", "result" }) })
+    public String validExam(){
+        result = examManageService.validExam(examPaperId);
+        return "ajax";
+    }
+
+
 }

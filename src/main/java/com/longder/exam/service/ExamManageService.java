@@ -46,4 +46,11 @@ public interface ExamManageService {
      * @param exam
      */
     void checkExam(Exam exam);
+
+    /**
+     * 验证某试卷，当前学生是否考过
+     * @param examPaperId
+     * @return
+     */
+    String validExam(Long examPaperId);
 }

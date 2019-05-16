@@ -154,6 +154,25 @@ public class ExamManageServiceImpl implements ExamManageService {
         examRepository.save(exam);
     }
 
+
+    /**
+     * 验证某试卷，当前学生是否考过
+     *
+     * @param examPaperId
+     * @return
+     */
+    @Override
+    public String validExam(Long examPaperId) {
+        SysUser student = SecurityUtil.getCurrentUser();
+        ExamPaper examPaper = examPaperRepository.getOne(examPaperId);
+        List<Exam> examList = examRepository.listCompletedByPaperAndStudent(examPaper,student);
+        if(examList.size()==0){
+            return "ok";
+        }else{
+            return "no";
+        }
+    }
+
     /**
      * 考试计分
      * @param examId
