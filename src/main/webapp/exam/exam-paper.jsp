@@ -87,22 +87,22 @@
                                             <div class="radio radio-info radio-inline">
                                                 <input id="Q${detail.question.id}A" type="radio" value="A"
                                                        name="exam.detailList[${loop.index}].answer" checked="">
-                                                <label for="Q${detail.question.id}A">A</label>
+                                                <label for="Q${detail.question.id}A">A.${detail.question.choiceA}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input id="Q${detail.question.id}B" type="radio" value="B"
                                                        name="exam.detailList[${loop.index}].answer">
-                                                <label for="Q${detail.question.id}B">B</label>
+                                                <label for="Q${detail.question.id}B">B.${detail.question.choiceB}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input id="Q${detail.question.id}C" type="radio" value="C"
                                                        name="exam.detailList[${loop.index}].answer">
-                                                <label for="Q${detail.question.id}C">C</label>
+                                                <label for="Q${detail.question.id}C">C.${detail.question.choiceC}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input id="Q${detail.question.id}D" type="radio" value="D"
                                                        name="exam.detailList[${loop.index}].answer">
-                                                <label for="Q${detail.question.id}D">D</label>
+                                                <label for="Q${detail.question.id}D">D.${detail.question.choiceD}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='FILL'}">

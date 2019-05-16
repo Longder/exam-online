@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <span class="input-group-btn">
-                            <button onclick="window.history.back()" type="button" class="btn btn-primary">返回</button>
+                            <a href="${ctx}/exam/listExamForStudent" type="button" class="btn btn-primary">返回</a>
                         </span>
                     </div>
                     <div class="col-sm-9"></div>
@@ -72,25 +72,25 @@
                                                 <input disabled id="Q${detail.question.id}A" type="radio" value="A"
                                                        name="exam.detailList[${loop.index}].answer"
                                                     <c:if test="${detail.answer=='A'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}A">A</label>
+                                                <label for="Q${detail.question.id}A">A.${detail.question.choiceA}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}B" type="radio" value="B"
                                                        name="exam.detailList[${loop.index}].answer"
                                                        <c:if test="${detail.answer=='B'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}B">B</label>
+                                                <label for="Q${detail.question.id}B">B.${detail.question.choiceB}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}C" type="radio" value="C"
                                                        name="exam.detailList[${loop.index}].answer"
                                                        <c:if test="${detail.answer=='C'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}C">C</label>
+                                                <label for="Q${detail.question.id}C">C.${detail.question.choiceC}</label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
                                                 <input disabled id="Q${detail.question.id}D" type="radio" value="D"
                                                        name="exam.detailList[${loop.index}].answer"
                                                        <c:if test="${detail.answer=='D'}">checked</c:if>>
-                                                <label for="Q${detail.question.id}D">D</label>
+                                                <label for="Q${detail.question.id}D">D.${detail.question.choiceD}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='FILL'}">

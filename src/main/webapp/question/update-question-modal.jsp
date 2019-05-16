@@ -93,26 +93,40 @@
                                     <div id="choice-detail" class="form-group" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
                                         <label class="col-sm-2 control-label">选项A：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceA"/>
+                                            <input type="text" class="form-control" name="question.choiceA" value="${question.choiceA}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项B：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceB"/>
+                                            <input type="text" class="form-control" name="question.choiceB" value="${question.choiceB}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项C：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceC"/>
+                                            <input type="text" class="form-control" name="question.choiceC" value="${question.choiceC}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项D：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceD"/>
+                                            <input type="text" class="form-control" name="question.choiceD" value="${question.choiceD}"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">试题答案<span class="text-danger">*</span></label>
+                                    <div class="form-group" id="answer-normal" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
+                                        <label class="col-sm-2 control-label">试题答案<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="question.answer" value="${question.answer}"/>
+                                            <input <c:if test="${question.type.name=='CHOICE'}">disabled</c:if> type="text" class="form-control" name="question.answer" value="${question.answer}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="answer-for-choice" <c:if test="${question.type.name=='CHOICE'}">style="display: none;"</c:if>>
+                                        <label class="col-sm-2 control-label">试题答案<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <select <c:if test="${question.type.name!='CHOICE'}">disabled</c:if> class="form-control m-b" name="question.answer">
+                                                <option value="">请选择</option>
+                                                <option <c:if test="${question.answer=='A'}">selected</c:if> value="A">A</option>
+                                                <option <c:if test="${question.answer=='B'}">selected</c:if> value="B">B</option>
+                                                <option <c:if test="${question.answer=='C'}">selected</c:if> value="C">C</option>
+                                                <option <c:if test="${question.answer=='D'}">selected</c:if> value="D">D</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -133,11 +147,25 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        $("#question-type-select").change(function(){
-            if($("#question-type-select").val()==="CHOICE"){
+        $("#question-type-select").change(function () {
+            if ($("#question-type-select").val() === "CHOICE") {
                 $("#choice-detail").show();
-            }else{
+                $("#answer-for-choice").show();
+                $("#answer-for-choice").find("select").removeAttrs("disabled");
+
+                $("#answer-normal").hide();
+                $("#answer-normal").find("input").attr("disabled",true);
+
+            } else {
                 $("#choice-detail").hide();
+                $("#answer-for-choice").hide();
+                $("#answer-for-choice").find("select").attr("disabled",true);
+
+                $("#answer-normal").show();
+                $("#answer-normal").find("input").removeAttrs("disabled");
+            }
+            if($("#question-type-select").val() === "ASK"||$("#question-type-select").val() === "ESSAY"){
+                $("#answer-normal").find("input").attr("disabled",true);
             }
         });
     });

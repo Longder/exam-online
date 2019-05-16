@@ -8,7 +8,11 @@
                 <mapping row="1" col="1">obj.type</mapping>
                 <mapping row="1" col="2">obj.difficulty</mapping>
                 <mapping row="1" col="3">obj.score</mapping>
-                <mapping row="1" col="4">obj.answer</mapping>
+                <mapping row="1" col="4">obj.choiceA</mapping>
+                <mapping row="1" col="5">obj.choiceB</mapping>
+                <mapping row="1" col="6">obj.choiceC</mapping>
+                <mapping row="1" col="7">obj.choiceD</mapping>
+                <mapping row="1" col="8">obj.answer</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

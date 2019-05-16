@@ -30,4 +30,20 @@ public class QuestionExcelObject implements Serializable {
      * 标准答案
      */
     private String answer;
+    /**
+     * 选项A
+     */
+    private String choiceA;
+    /**
+     * 选项A
+     */
+    private String choiceB;
+    /**
+     * 选项A
+     */
+    private String choiceC;
+    /**
+     * 选项A
+     */
+    private String choiceD;
 }
