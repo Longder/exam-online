@@ -19,11 +19,17 @@ public interface QuestionManageService {
     Question getOneQuestion(Long questionId);
 
     /**
-     * 科目列表
+     * 错题列表
      * @return
      */
     List<Question> listQuestion(String keyWord);
 
+    /**
+     * 错题列表
+     * @param keyWord
+     * @return
+     */
+    List<Question> listQuestionForMistake(String keyWord);
 
     /**
      * 存储题目，新增和修改都走这个

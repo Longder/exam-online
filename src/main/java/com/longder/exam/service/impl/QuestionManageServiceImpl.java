@@ -77,6 +77,17 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     }
 
     /**
+     * 错题列表
+     *
+     * @param keyWord
+     * @return
+     */
+    @Override
+    public List<Question> listQuestionForMistake(String keyWord) {
+        return null;
+    }
+
+    /**
      * 存储题目，新增和修改都走这个
      *
      * @param question

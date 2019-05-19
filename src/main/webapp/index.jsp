@@ -64,14 +64,17 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-<%--                            <li>--%>
-<%--                                <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>--%>
-<%--                            </li>--%>
+                                <%--                            <li>--%>
+                                <%--                                <a class="J_menuItem" href="${ctx}/course/list" title="科目管理">科目管理</a>--%>
+                                <%--                            </li>--%>
                             <li>
                                 <a class="J_menuItem" href="${ctx}/question/list" title="试题管理">试题管理</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="${ctx}/paper/list" title="试卷管理">试卷管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="${ctx}/question/listForMistake" title="错题查询">错题查询</a>
                             </li>
                         </ul>
                     </li>

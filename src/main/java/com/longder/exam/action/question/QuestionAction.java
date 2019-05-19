@@ -63,6 +63,15 @@ public class QuestionAction extends BaseAction {
     }
 
     /**
+     * 错题列表
+     * @return
+     */
+    @Action(value = "listForMistake", results = {@Result(name = SUCCESS, location = "/question/mistake-question-list.jsp")})
+    public String listForMistake(){
+        return SUCCESS;
+    }
+
+    /**
      * 去添加页
      *
      * @return
