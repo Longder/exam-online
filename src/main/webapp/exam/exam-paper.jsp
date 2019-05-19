@@ -79,27 +79,28 @@
                             <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
-                                    <p>${detail.question.content}</p>
+                                    <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
+                                    <p>分值：${detail.question.score}</p>
                                     <p class="text-danger" style="display:none;">回答错误</p>
                                     <p class="text-success" style="display:none;">回答正确</p>
                                     <c:choose>
                                         <c:when test="${detail.question.type.name=='CHOICE'}">
-                                            <div class="radio radio-info radio-inline">
+                                            <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}A" type="radio" value="A"
                                                        name="exam.detailList[${loop.index}].answer" checked="">
                                                 <label for="Q${detail.question.id}A">A.${detail.question.choiceA}</label>
                                             </div>
-                                            <div class="radio radio-info radio-inline">
+                                            <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}B" type="radio" value="B"
                                                        name="exam.detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}B">B.${detail.question.choiceB}</label>
                                             </div>
-                                            <div class="radio radio-info radio-inline">
+                                            <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}C" type="radio" value="C"
                                                        name="exam.detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}C">C.${detail.question.choiceC}</label>
                                             </div>
-                                            <div class="radio radio-info radio-inline">
+                                            <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}D" type="radio" value="D"
                                                        name="exam.detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}D">D.${detail.question.choiceD}</label>

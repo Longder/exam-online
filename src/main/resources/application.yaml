@@ -13,6 +13,7 @@ logging:
 # 服务端口
 server:
   port: 5188
-# 默认密码
+
 system:
-  default-password: 1234
+  default-password: 1234  # 默认密码
+  mistake-step: 5  #增加难度的错误数

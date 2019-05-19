@@ -43,6 +43,11 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     private ExamPaperQuestionRepository examPaperQuestionRepository;
     @Value("classpath:question-excel-config.xml")
     private org.springframework.core.io.Resource resource;
+    /**
+     * 错题加难度的阶梯
+     */
+    @Value("${system.mistake-step}")
+    private Integer mistakeStep;
 
     /**
      * 查询获取一个题目
@@ -148,5 +153,30 @@ public class QuestionManageServiceImpl implements QuestionManageService {
         } else {
             return "no";
         }
+    }
+
+    /**
+     * 记录统计错题
+     *
+     * @param questionId
+     */
+    @Override
+    @Transactional
+    public void countMistake(Long questionId) {
+        Question question = questionRepository.getOne(questionId);
+        if(ObjectUtils.isEmpty(question.getMistakeCount())){//空值转为0
+            question.setMistakeCount(0);
+        }
+        question.setMistakeCount(question.getMistakeCount() + 1);
+        //如果错题达到一定程度，就增加难度
+        if(question.getMistakeCount().equals(mistakeStep)//5
+                ||question.getMistakeCount().equals(mistakeStep*2)
+                ||question.getMistakeCount().equals(mistakeStep*3)){//2倍
+            Integer diff = question.getDifficulty() + 1;
+            if(diff <= 10){
+                question.setDifficulty(diff);
+            }
+        }
+        questionRepository.save(question);
     }
 }

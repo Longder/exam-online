@@ -59,6 +59,7 @@ create table QUESTION
     choice_B_ varchar(100),
     choice_C_ varchar(100),
     choice_D_ varchar(100),
+    mistake_count_ int,
 	constraint QUESTION_pk
 		primary key (id_)
 )

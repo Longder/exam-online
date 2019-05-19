@@ -47,7 +47,8 @@
                             <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
-                                    <p>${detail.question.content}</p>
+                                    <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
+                                    <p>分值：${detail.question.score}</p>
                                     <c:if test="${detail.question.type.name=='FILL'||detail.question.type.name=='CHOICE'}">
                                         <p>标准答案：${detail.question.answer}</p>
                                     </c:if>

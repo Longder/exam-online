@@ -56,7 +56,8 @@
                             <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
-                                    <p>${detail.question.content}</p>
+                                    <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
+                                    <p>分值：${detail.question.score}</p>
                                     <c:choose>
                                         <c:when test="${empty detail.correct}">
                                             <p class="text-primary">未阅卷</p>

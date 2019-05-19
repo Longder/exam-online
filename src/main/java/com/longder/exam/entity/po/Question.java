@@ -74,5 +74,9 @@ public class Question extends BaseIdEntity{
      */
     @Column(name = "choice_D_")
     private String choiceD;
-
+    /**
+     * 错误数量
+     */
+    @Column(name = "mistake_count_")
+    private Integer mistakeCount = 0;
 }

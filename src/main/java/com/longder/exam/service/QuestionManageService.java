@@ -42,4 +42,9 @@ public interface QuestionManageService {
      * @return
      */
     String deleteOneQuestion(Long questionId);
+
+    /**
+     * 记录统计错题
+     */
+    void countMistake(Long questionId);
 }

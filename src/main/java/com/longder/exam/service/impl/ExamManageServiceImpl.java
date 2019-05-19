@@ -28,6 +28,8 @@ public class ExamManageServiceImpl implements ExamManageService {
     private ExamPaperQuestionRepository examPaperQuestionRepository;
     @Resource
     private ExamDetailRepository examDetailRepository;
+    @Resource
+    private QuestionManageServiceImpl questionManageService;
     /**
      * 初始化考试
      *
@@ -86,6 +88,10 @@ public class ExamManageServiceImpl implements ExamManageService {
             dbDetail.setAnswer(detail.getAnswer());
             //判题
             dbDetail.validAnswer();
+            //如果错误，错题数量加1，持久化题目
+            if(!dbDetail.getCorrect()){
+                questionManageService.countMistake(dbDetail.getQuestion().getId());
+            }
             examDetailList.add(dbDetail);
         });
         examDetailRepository.saveAll(examDetailList);
@@ -146,6 +152,10 @@ public class ExamManageServiceImpl implements ExamManageService {
             if(!ObjectUtils.isEmpty(formDetail.getCorrect())){
                 ExamDetail detail = examDetailRepository.getOne(formDetail.getId());
                 detail.setCorrect(formDetail.getCorrect());
+                //如果错了，就计数
+                if(!detail.getCorrect()){
+                    questionManageService.countMistake(detail.getQuestion().getId());
+                }
                 examDetailList.add(detail);
             }
         });
