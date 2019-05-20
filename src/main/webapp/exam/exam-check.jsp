@@ -12,8 +12,7 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>阅卷试卷名称：${exam.examPaper.name}</h5>
-                <h6>考试学生：${exam.student.name}</h6>
+                <h5>阅卷试卷名称：${exam.examPaper.name} 考试学生：${exam.student.name}</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
