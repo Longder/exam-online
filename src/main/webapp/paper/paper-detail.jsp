@@ -43,14 +43,14 @@
                     <c:forEach items="${questionList}" var="question" varStatus="loop">
                             <div class="mail-box">
                                 <div class="mail-body">
-                                    <p>${question.content}</p>
+                                    <p>${loop.index+1}.${question.type.displayName}：${question.content}</p>
                                     <c:if test="${question.type.name=='CHOICE'}">
                                         <p>A.${question.choiceA}</p>
                                         <p>B.${question.choiceB}</p>
                                         <p>C.${question.choiceC}</p>
                                         <p>D.${question.choiceD}</p>
                                     </c:if>
-                                    <p>分数：${question.score}</p>
+                                    <p>分值：${question.score}</p>
                                     <p>答案：${question.answer}</p>
                                 </div>
                             </div>

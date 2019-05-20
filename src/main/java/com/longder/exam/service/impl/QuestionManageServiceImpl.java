@@ -84,7 +84,13 @@ public class QuestionManageServiceImpl implements QuestionManageService {
      */
     @Override
     public List<Question> listQuestionForMistake(String keyWord) {
-        return null;
+        SysUser teacher = SecurityUtil.getCurrentUser();
+        if (ObjectUtils.isEmpty(keyWord)) {
+            return questionRepository.listMistakeByTeacher(teacher);
+        } else {
+            keyWord = "%" + keyWord + "%";
+            return questionRepository.listMistakeByTeacherAndKeyWord(teacher,keyWord);
+        }
     }
 
     /**

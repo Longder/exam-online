@@ -68,6 +68,7 @@ public class QuestionAction extends BaseAction {
      */
     @Action(value = "listForMistake", results = {@Result(name = SUCCESS, location = "/question/mistake-question-list.jsp")})
     public String listForMistake(){
+        questionList = questionManageService.listQuestionForMistake(keyWord);
         return SUCCESS;
     }
 
@@ -149,6 +150,18 @@ public class QuestionAction extends BaseAction {
     public String update(){
         logger.debug("开始修改题目。");
         questionManageService.saveQuestion(question);
+        return SUCCESS;
+    }
+
+    /**
+     * 题目详情页面
+     * @return
+     */
+    @Action(value = "detail", results = {@Result(name = SUCCESS, location = "/question/question-detail-modal.jsp")})
+    public String detail(){
+        logger.debug("题目详情");
+        courseList = courseManageService.listCourseByCurrentTeacher();
+        question = questionManageService.getOneQuestion(questionId);
         return SUCCESS;
     }
 }

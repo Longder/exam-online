@@ -57,4 +57,20 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
      */
     @Query("SELECT q from Question q where q.course.teacher = :teacher and q.content like :keyWord")
     List<Question> listByTeacherAndKeyWord(@Param("teacher") SysUser teacher,@Param("keyWord")String keyWord);
+
+    /**
+     * 查询老师所管理的课程下的错题
+     * @param teacher
+     * @return
+     */
+    @Query("SELECT q from Question q where q.course.teacher = :teacher and q.mistakeCount is not null and q.mistakeCount>0 order by q.mistakeCount desc")
+    List<Question> listMistakeByTeacher(@Param("teacher")SysUser teacher);
+
+    /**
+     * 查询老师所管理的课程下的错题，包括关键字的查询
+     * @param teacher
+     * @return
+     */
+    @Query("SELECT q from Question q where q.course.teacher = :teacher and q.content like :keyWord and q.mistakeCount is not null and q.mistakeCount>0 order by q.mistakeCount desc")
+    List<Question> listMistakeByTeacherAndKeyWord(@Param("teacher") SysUser teacher,@Param("keyWord")String keyWord);
 }

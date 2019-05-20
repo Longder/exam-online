@@ -89,7 +89,7 @@ public class ExamManageServiceImpl implements ExamManageService {
             //判题
             dbDetail.validAnswer();
             //如果错误，错题数量加1，持久化题目
-            if(!dbDetail.getCorrect()){
+            if(!ObjectUtils.isEmpty(dbDetail.getCorrect())&&!dbDetail.getCorrect()){
                 questionManageService.countMistake(dbDetail.getQuestion().getId());
             }
             examDetailList.add(dbDetail);
@@ -153,7 +153,7 @@ public class ExamManageServiceImpl implements ExamManageService {
                 ExamDetail detail = examDetailRepository.getOne(formDetail.getId());
                 detail.setCorrect(formDetail.getCorrect());
                 //如果错了，就计数
-                if(!detail.getCorrect()){
+                if(!ObjectUtils.isEmpty(detail.getCorrect())&&!detail.getCorrect()){
                     questionManageService.countMistake(detail.getQuestion().getId());
                 }
                 examDetailList.add(detail);

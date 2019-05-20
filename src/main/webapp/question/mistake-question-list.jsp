@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="session"/>
 <!DOCTYPE html>
 <html>
@@ -32,14 +32,17 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>试题包含内容：</label>
-                                <input type="text" name="keyWord" placeholder="试题关键字" class="input-sm form-control" value="${keyWord}"/>
+                                <label>错题包含内容：</label>
+                                <input type="text" name="keyWord" placeholder="试题关键字" class="input-sm form-control"
+                                       value="${keyWord}"/>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <button style="margin-top: 20px;" id="searchSubmit" type="submit" class="btn btn-primary">查询</button>
+                                <button style="margin-top: 20px;" id="searchSubmit" type="submit"
+                                        class="btn btn-primary">查询
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -54,19 +57,27 @@
                             <th>难度</th>
                             <th>分值</th>
                             <th>错误数</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
+                        <c:forEach items="${questionList}" var="question" varStatus="loop">
+                            <tr>
+                                <td>${loop.index+1}</td>
+                                <td>${question.course.name}</td>
+                                <td>${question.type.displayName}</td>
+                                <td>${question.difficulty}</td>
+                                <td>${question.score}</td>
+                                <td>${question.mistakeCount}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#questionModal"
+                                            onclick="openModal('${ctx}/question/detail?questionId=${question.id}','questionModal')">
+                                        详情
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -77,18 +88,18 @@
 <div class="modal inmodal fade" id="questionModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="/import/Script.jsp"/>
 <script>
-    function deleteQuestion(questionId){
-        if(confirm("确定删除吗？")){
+    function deleteQuestion(questionId) {
+        if (confirm("确定删除吗？")) {
             $.ajax({
                 url: "/question/delete",
                 type: "post",
                 async: false,
                 data: {
-                    questionId:questionId
-                },success: function (data) {
-                    if(data==="ok"){
+                    questionId: questionId
+                }, success: function (data) {
+                    if (data === "ok") {
                         alert("删除成功");
-                    }else{
+                    } else {
                         alert("题目在试卷中已存在，删除失败");
                     }
                     window.location = "/question/list";
