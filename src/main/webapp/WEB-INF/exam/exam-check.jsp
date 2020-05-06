@@ -41,9 +41,9 @@
                         </h2>
                     </div>
                     <form method="post" action="${ctx}/exam/checkExam">
-                        <input type="hidden" name="exam.id" value="${exam.id}"/>
+                        <input type="hidden" name="id" value="${exam.id}"/>
                         <c:forEach items="${exam.detailList}" var="detail" varStatus="loop">
-                            <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
+                            <input type="hidden" name="detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
                                     <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
@@ -109,14 +109,14 @@
                                         <p>
                                             回答：
                                             <span class="radio">
-                                            <input type="radio" name="exam.detailList[${loop.index}].correct"
+                                            <input type="radio" name="detailList[${loop.index}].correct"
                                                    id="Q${detail.question.id}C" value="true" checked>
                                             <label for="Q${detail.question.id}C">
                                                 正确
                                             </label>
                                         </span>
                                         <span class="radio">
-                                            <input type="radio" name="exam.detailList[${loop.index}].correct"
+                                            <input type="radio" name="detailList[${loop.index}].correct"
                                                    id="Q${detail.question.id}W" value="false">
                                             <label for="Q${detail.question.id}W">
                                                 错误

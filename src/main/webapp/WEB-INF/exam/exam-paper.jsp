@@ -74,9 +74,9 @@
                         </div>
                     </div>
                     <form method="post" action="${ctx}/exam/completeExam">
-                        <input type="hidden" name="exam.id" value="${exam.id}"/>
+                        <input type="hidden" name="id" value="${exam.id}"/>
                         <c:forEach items="${exam.detailList}" var="detail" varStatus="loop">
-                            <input type="hidden" name="exam.detailList[${loop.index}].id" value="${detail.id}"/>
+                            <input type="hidden" name="detailList[${loop.index}].id" value="${detail.id}"/>
                             <div class="mail-box">
                                 <div class="mail-body">
                                     <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
@@ -87,38 +87,38 @@
                                         <c:when test="${detail.question.type.name=='CHOICE'}">
                                             <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}A" type="radio" value="A"
-                                                       name="exam.detailList[${loop.index}].answer" checked="">
+                                                       name="detailList[${loop.index}].answer" checked="">
                                                 <label for="Q${detail.question.id}A">A.${detail.question.choiceA}</label>
                                             </div>
                                             <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}B" type="radio" value="B"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                       name="detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}B">B.${detail.question.choiceB}</label>
                                             </div>
                                             <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}C" type="radio" value="C"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                       name="detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}C">C.${detail.question.choiceC}</label>
                                             </div>
                                             <div class="radio radio-info">
                                                 <input id="Q${detail.question.id}D" type="radio" value="D"
-                                                       name="exam.detailList[${loop.index}].answer">
+                                                       name="detailList[${loop.index}].answer">
                                                 <label for="Q${detail.question.id}D">D.${detail.question.choiceD}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='FILL'}">
                                             <p>
-                                                <input name="exam.detailList[${loop.index}].answer" type="text" class="form-control"/>
+                                                <input name="detailList[${loop.index}].answer" type="text" class="form-control"/>
                                             </p>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='ASK'}">
                                             <p>
-                                                <textarea name="exam.detailList[${loop.index}].answer" class="form-control"></textarea>
+                                                <textarea name="detailList[${loop.index}].answer" class="form-control"></textarea>
                                             </p>
                                         </c:when>
                                         <c:when test="${detail.question.type.name=='ESSAY'}">
                                             <p>
-                                                <textarea name="exam.detailList[${loop.index}].answer" class="form-control"></textarea>
+                                                <textarea name="detailList[${loop.index}].answer" class="form-control"></textarea>
                                             </p>
                                         </c:when>
                                     </c:choose>

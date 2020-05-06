@@ -1,4 +1,8 @@
 
+CREATE DATABASE exam_online DEFAULT CHARACTER SET UTF8;
+
+use exam_online;
+
 drop table if exists SYS_USER;
 create table SYS_USER
 (
