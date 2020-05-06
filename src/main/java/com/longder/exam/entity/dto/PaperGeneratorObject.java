@@ -1,9 +1,7 @@
 package com.longder.exam.entity.dto;
 
 import lombok.Data;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 
@@ -54,16 +52,4 @@ public class PaperGeneratorObject implements Serializable {
      * 所选题目的id
      */
     private List<Long> questionIds;
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("paperName", paperName)
-                .append("choiceCount", choiceCount)
-                .append("fillCount", fillCount)
-                .append("askCount", askCount)
-                .append("essayCount", essayCount)
-                .append("courseId", courseId)
-                .toString();
-    }
 }
