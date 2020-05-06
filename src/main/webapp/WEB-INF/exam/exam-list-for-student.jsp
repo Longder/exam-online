@@ -42,6 +42,7 @@
                             <th>试卷名称</th>
                             <th>考试学生</th>
                             <th>是否阅卷</th>
+                            <th>分数</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -61,6 +62,11 @@
                                             <span class="label label-danger">未阅卷</span>
                                         </c:otherwise>
                                     </c:choose>
+                                </td>
+                                <td>
+                                    <c:if test="${exam.isChecked}">
+                                        ${exam.score}
+                                    </c:if>
                                 </td>
                                 <td>
                                     <a href="${ctx}/exam/detail?examId=${exam.id}&source=list" class="btn btn-sm btn-primary">

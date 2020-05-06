@@ -42,6 +42,7 @@
                             <th>试卷名称</th>
                             <th>考试学生</th>
                             <th>是否阅卷</th>
+                            <th>分数</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -61,16 +62,20 @@
                                             <span class="label label-danger">未阅卷</span>
                                         </c:otherwise>
                                     </c:choose>
-                                    <c:if test="exam.isChecked">
-
+                                </td>
+                                <td>
+                                    <c:if test="${exam.isChecked}">
+                                        ${exam.score}
                                     </c:if>
                                 </td>
                                 <td>
-                                    <a href="${ctx}/exam/detail?examId=${exam.id}&source=list" class="btn btn-sm btn-primary">
+                                    <a href="${ctx}/exam/detail?examId=${exam.id}&source=list"
+                                       class="btn btn-sm btn-primary">
                                         查看详情
                                     </a>
                                     <c:if test="${!exam.isChecked}">
-                                        <a href="${ctx}/exam/toCheckExam?examId=${exam.id}" class="btn btn-sm btn-warning">
+                                        <a href="${ctx}/exam/toCheckExam?examId=${exam.id}"
+                                           class="btn btn-sm btn-warning">
                                             阅卷
                                         </a>
                                     </c:if>

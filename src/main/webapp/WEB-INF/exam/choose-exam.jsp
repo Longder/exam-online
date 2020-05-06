@@ -40,6 +40,7 @@
                             <th>序号</th>
                             <th>所属科目</th>
                             <th>试卷名称</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -50,9 +51,21 @@
                                 <td>${paper.course.name}</td>
                                 <td>${paper.name}</td>
                                 <td>
-                                    <a onclick="return validExam(${paper.id})" href="${ctx}/exam/startExam?examPaperId=${paper.id}"  class="btn btn-sm btn-warning" >
-                                        开始考试
-                                    </a>
+                                    <c:choose>
+                                        <c:when test="${paper.published}">
+                                            <span class="label label-primary">已发布</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="label label-danger">未发布</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <c:if test="${paper.published}">
+                                        <a onclick="return validExam(${paper.id})" href="${ctx}/exam/startExam?examPaperId=${paper.id}"  class="btn btn-sm btn-warning" >
+                                            开始考试
+                                        </a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>

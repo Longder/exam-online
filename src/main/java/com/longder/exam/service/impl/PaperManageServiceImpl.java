@@ -38,7 +38,7 @@ public class PaperManageServiceImpl implements PaperManageService {
      */
     @Override
     public List<ExamPaper> listExamPaper() {
-        return examPaperRepository.findAll();
+        return examPaperRepository.listPublished();
     }
 
     /**
@@ -138,6 +138,8 @@ public class PaperManageServiceImpl implements PaperManageService {
     private ExamPaper saveExamPaper(PaperGeneratorObject generatorObject){
         ExamPaper examPaper = new ExamPaper();
         Course course = courseRepository.getOne(generatorObject.getCourseId());
+        //默认未发布
+        examPaper.setPublished(false);
         examPaper.setCourse(course);
         examPaper.setName(generatorObject.getPaperName());
         examPaper.setHours(generatorObject.getHours());

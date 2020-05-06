@@ -20,4 +20,11 @@ public interface ExamPaperRepository extends JpaRepository<ExamPaper,Long> {
      */
     @Query("select p from ExamPaper p where p.course.teacher = :teacher")
     List<ExamPaper> listByTeacher(@Param("teacher") SysUser teacher);
+
+    /**
+     * 查询已经发布的试卷
+     * @return
+     */
+    @Query("select p from ExamPaper p where p.published = true")
+    List<ExamPaper> listPublished();
 }

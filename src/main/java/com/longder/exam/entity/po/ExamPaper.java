@@ -39,6 +39,13 @@ public class ExamPaper extends BaseIdEntity{
      */
     @Column(name = "minutes_")
     private Integer minutes;
+
+    /**
+     * 是否发布
+     * true 发布 false不发布
+     */
+    @Column(name = "published_")
+    private Boolean published;
     /**
      * 选择题数量
      */

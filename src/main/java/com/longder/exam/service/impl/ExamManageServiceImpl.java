@@ -100,14 +100,24 @@ public class ExamManageServiceImpl implements ExamManageService {
     }
 
     /**
-     * 学生课程列表
+     * 学生考试列表
      *
      * @return
      */
     @Override
     public List<Exam> listExamForStudent() {
         SysUser currentUser = SecurityUtil.getCurrentUser();
-        return examRepository.listCompletedByUser(currentUser);
+        List<Exam> examList = examRepository.listCompletedByUser(currentUser);
+        //处理分数
+        examList.forEach(exam -> {
+            if(exam.getIsChecked()){
+                //如果阅卷了，就计算总分
+                //查询detail
+                exam.setDetailList(examDetailRepository.listByExamId(exam.getId()));
+                exam.countScore();
+            }
+        });
+        return examList;
     }
 
     /**
@@ -118,7 +128,17 @@ public class ExamManageServiceImpl implements ExamManageService {
     @Override
     public List<Exam> listExamForTeacher() {
         SysUser currentUser = SecurityUtil.getCurrentUser();
-        return examRepository.listCompletedByTeacher(currentUser);
+        List<Exam> examList = examRepository.listCompletedByTeacher(currentUser);
+        //处理分数
+        examList.forEach(exam -> {
+            if(exam.getIsChecked()){
+                //如果阅卷了，就计算总分
+                //查询detail
+                exam.setDetailList(examDetailRepository.listByExamId(exam.getId()));
+                exam.countScore();
+            }
+        });
+        return examList;
     }
 
     /**

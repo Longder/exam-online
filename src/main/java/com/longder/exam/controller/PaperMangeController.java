@@ -103,5 +103,13 @@ public class PaperMangeController {
         return paperManageService.deleteOnePaper(paperId);
     }
 
+    /**
+     * 发布试卷
+     * @return
+     */
+    @GetMapping("/publish")
+    public String publish(Long paperId){
+        return "redirect:/paper/list";
+    }
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 考试实体
@@ -63,5 +64,23 @@ public class Exam extends BaseIdEntity{
     @Transient
     private Integer examTime;
 
+    /**
+     * 分数
+     */
+    @Transient
+    private Double score;
+
+    /**
+     * 计算总分
+     */
+    public void countScore(){
+        AtomicReference<Double> result = new AtomicReference<>((double) 0);
+        detailList.forEach(examDetail -> {
+            if(examDetail.getCorrect()){
+                result.updateAndGet(v -> v + examDetail.getQuestion().getScore());
+            }
+        });
+        this.score = result.get();
+    }
 
 }

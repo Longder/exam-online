@@ -59,6 +59,7 @@
                             <th>序号</th>
                             <th>所属科目</th>
                             <th>试卷名称</th>
+                            <th>是否发布</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -69,6 +70,19 @@
                                 <td>${paper.course.name}</td>
                                 <td>${paper.name}</td>
                                 <td>
+                                    <c:choose>
+                                        <c:when test="${paper.published}">
+                                            <span class="label label-primary">已发布</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="label label-danger">未发布</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <c:if test="${!paper.published}">
+                                        <a href="${ctx}/paper/publish?paperId=${paper.id}" type="button" class="btn btn-sm btn-primary">发布试卷</a>
+                                    </c:if>
                                     <a href="${ctx}/paper/detail?paperId=${paper.id}" type="button" class="btn btn-sm btn-warning" >
                                         试卷详情
                                     </a>

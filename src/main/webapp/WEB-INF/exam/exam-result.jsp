@@ -58,6 +58,9 @@
                                 <div class="mail-body">
                                     <p>${loop.index+1}.${detail.question.type.displayName}：${detail.question.content}</p>
                                     <p>分值：${detail.question.score}</p>
+                                    <c:if test="${detail.question.type.name=='FILL'||detail.question.type.name=='CHOICE'}">
+                                        <p>标准答案：${detail.question.answer}</p>
+                                    </c:if>
                                     <c:choose>
                                         <c:when test="${empty detail.correct}">
                                             <p class="text-primary">未阅卷</p>
