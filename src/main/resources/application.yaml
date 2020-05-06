@@ -5,6 +5,14 @@ spring:
     username: root
     password: fuck3148481
     driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
 # 日志配置（开发用）
 logging:
   level:

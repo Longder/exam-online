@@ -3,6 +3,7 @@ package com.longder.exam.service;
 import com.longder.exam.entity.po.Question;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public interface QuestionManageService {
     /**
      * 从excel导入题目
      */
-    void importQuestionsFormExcel(Long courseId,File excelFile);
+    void importQuestionsFormExcel(Long courseId, InputStream inputStream);
 
     /**
      * 删除一个题目

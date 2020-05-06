@@ -114,16 +114,14 @@ public class QuestionManageServiceImpl implements QuestionManageService {
     /**
      * 从excel导入题目
      *
-     * @param excelFile
      */
     @Override
     @Transactional
-    public void importQuestionsFormExcel(Long courseId, File excelFile) {
+    public void importQuestionsFormExcel(Long courseId, InputStream inputStream) {
         XLSReader mainReader;
         final List<QuestionExcelObject> resultList = new ArrayList<>();
         final Map<String, Object> beans = new HashMap<>();
         try {
-            InputStream inputStream = new FileInputStream(excelFile);
             mainReader = ReaderBuilder.buildFromXML(resource.getInputStream());
             beans.put("objs", resultList);
             mainReader.read(inputStream, beans);
