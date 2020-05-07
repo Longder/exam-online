@@ -18,7 +18,7 @@
                             <div class="ibox-content">
                                 <form id="createUserForm" method="post" class="form-horizontal"
                                       action="${ctx}/teacher/update">
-                                    <input type="hidden" name="teacher.id" value="${teacher.id}"/>
+                                    <input type="hidden" name="id" value="${teacher.id}"/>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">姓名<span class="text-danger">*</span></label>

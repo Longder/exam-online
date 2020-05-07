@@ -18,11 +18,11 @@
                             <div class="ibox-content">
                                 <form id="createUserForm" method="post" class="form-horizontal"
                                       action="${ctx}/question/update">
-                                    <input type="hidden" value="${question.id}" name="question.id"/>
+                                    <input type="hidden" value="${question.id}" name="id"/>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">所属科目<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="question.course.id">
+                                            <select class="form-control m-b" name="course.id">
                                                 <option value="">请选择</option>
                                                 <c:forEach items="${courseList}" var="course">
                                                     <c:choose>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题类型<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select id="question-type-select" class="form-control m-b" name="question.type">
+                                            <select id="question-type-select" class="form-control m-b" name="type">
                                                 <option value="">请选择</option>
                                                 <c:forEach items="${questionTypes}" var="type">
                                                     <c:choose>
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题难度<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select class="form-control m-b" name="question.difficulty">
+                                            <select class="form-control m-b" name="difficulty">
                                                 <option value="">请选择</option>
                                                 <c:forEach items="${difficultyTypes}" var="difficulty">
                                                     <c:choose>
@@ -79,33 +79,33 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题分数<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="question.score" value="${question.score}"/>
+                                            <input type="number" class="form-control" name="score" value="${question.score}"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">试题内容<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <textarea rows="10" type="text" class="form-control" name="question.content">${question.content}</textarea>
+                                            <textarea rows="10" type="text" class="form-control" name="content">${question.content}</textarea>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div id="choice-detail" class="form-group" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
                                         <label class="col-sm-2 control-label">选项A：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceA" value="${question.choiceA}"/>
+                                            <input type="text" class="form-control" name="choiceA" value="${question.choiceA}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项B：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceB" value="${question.choiceB}"/>
+                                            <input type="text" class="form-control" name="choiceB" value="${question.choiceB}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项C：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceC" value="${question.choiceC}"/>
+                                            <input type="text" class="form-control" name="choiceC" value="${question.choiceC}"/>
                                         </div>
                                         <label class="col-sm-2 control-label">选项D：<span class="text-danger">*</span></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="question.choiceD" value="${question.choiceD}"/>
+                                            <input type="text" class="form-control" name="choiceD" value="${question.choiceD}"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -113,14 +113,15 @@
                                         <label class="col-sm-2 control-label">试题答案<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input <c:if test="${question.type.name=='CHOICE'}">disabled</c:if> type="text" class="form-control" name="question.answer" value="${question.answer}"/>
+                                            <input  <c:if test="${question.type.name=='ASK'||question.type.name=='ESSAY'||question.type.name=='CHOICE'}">readonly</c:if>
+                                                    <c:if test="${question.type.name=='CHOICE'}">disabled</c:if> type="text" class="form-control" name="answer" value="${question.answer}"/>
                                         </div>
                                     </div>
                                     <div class="form-group" id="answer-for-choice" <c:if test="${question.type.name!='CHOICE'}">style="display: none;"</c:if>>
                                         <label class="col-sm-2 control-label">试题答案<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select <c:if test="${question.type.name!='CHOICE'}">disabled</c:if> class="form-control m-b" name="question.answer">
+                                            <select <c:if test="${question.type.name!='CHOICE'}">disabled</c:if> class="form-control m-b" name="answer">
                                                 <option value="">请选择</option>
                                                 <option <c:if test="${question.answer=='A'}">selected</c:if> value="A">A</option>
                                                 <option <c:if test="${question.answer=='B'}">selected</c:if> value="B">B</option>
@@ -163,6 +164,9 @@
 
                 $("#answer-normal").show();
                 $("#answer-normal").find("input").removeAttrs("disabled");
+                if($("#question-type-select").val() === "FILL"){
+                    $("#answer-normal").find("input").removeAttrs("readonly");
+                }
             }
             if($("#question-type-select").val() === "ASK"||$("#question-type-select").val() === "ESSAY"){
                 $("#answer-normal").find("input").attr("disabled",true);

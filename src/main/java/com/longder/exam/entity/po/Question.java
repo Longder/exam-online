@@ -1,6 +1,5 @@
 package com.longder.exam.entity.po;
 
-import com.longder.exam.entity.enumeration.DifficultyType;
 import com.longder.exam.entity.enumeration.QuestionType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

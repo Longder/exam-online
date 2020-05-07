@@ -18,7 +18,7 @@
                             <div class="ibox-content">
                                 <form id="createUserForm" method="post" class="form-horizontal"
                                       action="${ctx}/course/update">
-                                    <input type="hidden" value="${course.id}" name="course.id"/>
+                                    <input type="hidden" value="${course.id}" name="id"/>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">课程名称<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
