@@ -56,4 +56,10 @@ public interface PaperManageService {
      * @return
      */
     String deleteOnePaper(Long paperId);
+
+    /**
+     * 发布试卷
+     * @param paperId
+     */
+    void publishPaper(Long paperId);
 }

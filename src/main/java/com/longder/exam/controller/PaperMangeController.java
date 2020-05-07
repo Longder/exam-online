@@ -109,6 +109,7 @@ public class PaperMangeController {
      */
     @GetMapping("/publish")
     public String publish(Long paperId){
+        paperManageService.publishPaper(paperId);
         return "redirect:/paper/list";
     }
 

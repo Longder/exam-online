@@ -186,4 +186,17 @@ public class PaperManageServiceImpl implements PaperManageService {
         }
 
     }
+
+    /**
+     * 发布试卷
+     *
+     * @param paperId
+     */
+    @Override
+    @Transactional
+    public void publishPaper(Long paperId) {
+        ExamPaper examPaper = examPaperRepository.getOne(paperId);
+        examPaper.setPublished(true);
+        examPaperRepository.save(examPaper);
+    }
 }
